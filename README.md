@@ -29,6 +29,7 @@ End round stats:
 - Clicking on a row opens new page with full details of the round.
 - Straight copy of the existing end round stats window from the game, if we
   could store it in the DB after a round has ended.
+- See [the stats file](https://github.com/Apollo-Community/ApolloStation/blob/master/code/modules/statistics/stats.dm) for details about end round stats.
 - Copy the stats used on goonhub: Antags, custom AI laws, deaths, round type
   and length.
 
