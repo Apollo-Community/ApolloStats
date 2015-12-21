@@ -7,9 +7,18 @@ With heavy inspiration from other servers' webpages such as [Goon](http://goonhu
 TODO
 --------------------------------------------------------------------------------
 
+Command line interface:
+- Default options to run silent and serve pages on a standard port (not 80).
+- Version flag to display current version.
+- Update flag? Atempts to update the binary with a new released version from
+  the main repo, by doing some magic with github.
+
+Database interface:
+- Must support MariaDB or whatever is being used on the server.
+
 Templates:
-- Should try to use existing css from forum.
 - Show some nice error pages.
+- Use existing assets from the forum, such as css and logos.
 
 Ban log:
 - Format rows as: Player (ip, cid) got bantype until time by admin for reason.
