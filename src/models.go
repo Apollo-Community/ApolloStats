@@ -22,6 +22,14 @@ func (b *Ban) TableName() string {
 	return "ban"
 }
 
+func (b *Ban) Expires() string {
+	if b.Duration < 0 {
+		return "Permanent"
+	} else {
+		return b.Expiration.Format("2006-01-02 15:04 MST")
+	}
+}
+
 type AccountItem struct {
 	ID        int64     `gorm:"column:id;primary_key"`
 	Timestamp time.Time `gorm:"column:time"`
