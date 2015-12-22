@@ -5,8 +5,6 @@ import (
 	"time"
 )
 
-const MAX_ROWS = 100
-
 type Ban struct {
 	ID         int64     `gorm:"column:id;primary_key"`
 	Timestamp  time.Time `gorm:"column:bantime"`

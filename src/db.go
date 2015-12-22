@@ -5,6 +5,8 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+const MAX_ROWS = 200
+
 // NOTE: DON'T USE ANY WRITE OPERATIONS ON THE DATABASE!
 // We're interfacing with an external, live game database!
 
