@@ -19,6 +19,7 @@ Database interface:
 Templates:
 - Show some nice error pages.
 - Use existing assets from the forum, such as css and logos.
+- Replace links to tmp static assets with ext. assets on forum server.
 
 Ban log:
 - Format rows as: Player (ip, cid) got bantype until time by admin for reason.
