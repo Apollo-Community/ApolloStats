@@ -1,0 +1,66 @@
+{{define "header"}}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/static/css/style.css" rel="stylesheet">
+        <link href="/static/css/apollo.css" rel="stylesheet">
+        <link rel="shortcut icon" href="/static/favicon.ico">
+        <title>
+           {{.pagetitle}} | Apollo Community Stats
+        </title>
+    </head>
+
+    <body>
+        <div id="wrap" class="page-width">
+        <div id="page-body">
+        <div class="navbar tabbed">
+            <div class="nav-tabs">
+                <ul class="leftside">
+                    <li class="tab"><a class="nav-link" href="/">Apollo Stats</a></li>
+                    <li class="tab"><a class="nav-link" href="https://apollo-community.org/">Forums</a></li>
+                    <li class="tab"><a class="nav-link" href="http://wiki.apollo-community.org">Wiki</a></li>
+                </ul>
+                <ul class="rightside">
+                    <li class="tab"><a class="nav-link" href="/bans">Bans</a></li>
+                    <li class="tab"><a class="nav-link" href="/account_items">Account Items</a></li>
+                    <li class="tab"><a class="nav-link" href="/deaths">Deaths</a></li>
+                </ul>
+            </div>
+        </div>
+{{end}}
+
+{{define "panelhead"}}
+        <div class="forabg category-3 elegant">
+            <ul class="topiclist">
+                <li class="header">
+                    {{.}}
+                </li>
+            </ul>
+            <div class="topiclist forum"><div class="content">
+{{end}}
+
+{{define "panelfoot"}}
+            </div></div>
+        </div>
+{{end}}
+
+{{define "footer"}}
+        <div class="copyright">
+            <p>
+                <span class="left">
+                    Copyright &#169; {{year}}
+                    The Apollo Community
+                </span>
+
+                <span class="right">
+                    Source code at
+                    <a href="https://github.com/lmas/ApolloStats">Github</a>,
+                    Style by <a href="http://www.artodia.com/">Arty</a>.
+                </span>
+            </p>
+        </div>
+        </div></div>
+    </body>
+</html>
+{{end}}

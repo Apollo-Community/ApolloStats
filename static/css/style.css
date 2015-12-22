@@ -1,0 +1,28 @@
+
+/* Tables *********************************************************************/
+tr.borders {
+    border-top: 1px solid #2E353F;
+    border-bottom: 1px solid #181C21;
+}
+
+td.padded {
+    padding: 5px 10px;
+}
+
+td.min-width {
+    min-width: 130px;
+}
+
+/* Utils **********************************************************************/
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.bold {
+    font-weight: bold;
+}
+
