@@ -1,8 +1,10 @@
 package apollostats
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -43,6 +45,8 @@ func (i *Instance) Init() {
 	i.router.GET("/bans", i.bans)
 	i.router.GET("/account_items", i.account_items)
 	i.router.GET("/deaths", i.deaths)
+	i.router.GET("/rounds", i.rounds)
+	i.router.GET("/round/:round_id", i.round_detail)
 }
 
 func (i *Instance) Serve(addr string) error {
@@ -74,5 +78,34 @@ func (i *Instance) deaths(c *gin.Context) {
 	c.HTML(http.StatusOK, "deaths.html", gin.H{
 		"pagetitle": "Deaths",
 		"Deaths":    i.DB.AllDeaths(),
+	})
+}
+
+func (i *Instance) rounds(c *gin.Context) {
+	c.HTML(http.StatusOK, "rounds.html", gin.H{
+		"pagetitle": "Rounds",
+		"Rounds":    i.DB.AllRounds(),
+	})
+}
+
+func (i *Instance) round_detail(c *gin.Context) {
+	id, e := strconv.ParseInt(c.Param("round_id"), 10, 0)
+	if e != nil {
+		// TODO: error page
+		//c.AbortWithError(http.StatusNotFound, fmt.Errorf("Round not found"))
+		c.String(http.StatusNotFound, "Round not found")
+		return
+	}
+
+	round, e := i.DB.GetRound(id)
+	if e != nil {
+		//c.AbortWithError(http.StatusNotFound, e)
+		c.String(http.StatusNotFound, "Round not found")
+		return
+	}
+
+	c.HTML(http.StatusOK, "round_detail.html", gin.H{
+		"pagetitle": fmt.Sprintf("Round #%d", round.ID),
+		"Round":     round,
 	})
 }
