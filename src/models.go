@@ -62,3 +62,56 @@ func (d *Death) RoomName() string {
 	// Cleanup the room name
 	return strings.Trim(d.Room, "Ã¿")
 }
+
+type RoundStats struct {
+	ID       int64     `gorm:"column:id"`
+	Gamemode string    `gorm:"column:gamemode"`
+	Endtime  time.Time `gorm:"column:endtime"`
+	Duration int64     `gorm:"column:duration"`
+
+	Antags string `gorm:"column:antags"`
+	AILaws string `gorm:"column:ai_laws"`
+
+	Productivity    int `gorm:"column:productivity"`
+	Deaths          int `gorm:"column:deaths"`
+	Clones          int `gorm:"column:clones"`
+	DispenseVolume  int `gorm:"column:dispense_volume"`
+	BombsExploded   int `gorm:"column:bombs_exploded"`
+	Vended          int `gorm:"column:vended"`
+	RunDistance     int `gorm:"column:run_distance"`
+	BloodMopped     int `gorm:"column:blood_mopped"`
+	DamageCost      int `gorm:"column:damage_cost"`
+	BreakTime       int `gorm:"column:break_time"`
+	MonkeyDeaths    int `gorm:"column:monkey_deaths"`
+	SpamBlocked     int `gorm:"column:spam_blocked"`
+	PeopleSlipped   int `gorm:"column:people_slipped"`
+	DoorsOpened     int `gorm:"column:doors_opened"`
+	GunsFired       int `gorm:"column:guns_fired"`
+	BeepskyBeatings int `gorm:"column:beepsky_beatings"`
+	DoorsWelded     int `gorm:"column:doors_welded"`
+	Totalkwh        int `gorm:"column:total_kwh"`
+	Artifacts       int `gorm:"column:artifacts"`
+	CargoProfit     int `gorm:"column:cargo_profit"`
+	TrashVented     int `gorm:"column:trash_vented"`
+	AIFollow        int `gorm:"column:ai_follow"`
+}
+
+func (r *RoundStats) TableName() string {
+	return "round_stats"
+}
+
+func (r *RoundStats) AntagList() []string {
+	s := strings.Split(strings.Trim(r.Antags, ", "), ", ")
+	if len(s) == 1 && len(s[0]) < 1 {
+		return nil
+	}
+	return s
+}
+
+func (r *RoundStats) AILawList() []string {
+	s := strings.Split(strings.Trim(r.AILaws, ", "), ", ")
+	if len(s) == 1 && len(s[0]) < 1 {
+		return nil
+	}
+	return s
+}

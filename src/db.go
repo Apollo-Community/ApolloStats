@@ -1,6 +1,8 @@
 package apollostats
 
 import (
+	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 )
@@ -38,4 +40,18 @@ func (db *DB) AllDeaths() []*Death {
 	var tmp []*Death
 	db.Order("id desc").Limit(MAX_ROWS).Find(&tmp)
 	return tmp
+}
+
+func (db *DB) AllRounds() []*RoundStats {
+	var tmp []*RoundStats
+	db.Order("id desc").Limit(MAX_ROWS).Find(&tmp)
+	return tmp
+}
+
+func (db *DB) GetRound(id int64) (*RoundStats, error) {
+	var tmp RoundStats
+	if db.First(&tmp, id).RecordNotFound() {
+		return nil, fmt.Errorf("Round not found")
+	}
+	return &tmp, nil
 }
