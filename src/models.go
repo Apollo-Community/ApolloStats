@@ -11,7 +11,7 @@ type Ban struct {
 	CKey       string    `gorm:"column:ckey"`
 	CID        string    `gorm:"column:computerid"`
 	IP         string    `gorm:"column:ip"`
-	Bantype    string    `gorm:"column:bantype"`
+	BanType    string    `gorm:"column:bantype"`
 	Admin      string    `gorm:"column:a_ckey"`
 	Reason     string    `gorm:"column:reason"`
 	Duration   int       `gorm:"column:duration"`
@@ -90,8 +90,8 @@ func (r *RoundAILaws) TableName() string {
 
 type RoundStats struct {
 	ID       int64     `gorm:"column:id"`
-	Gamemode string    `gorm:"column:game_mode"`
-	Endtime  time.Time `gorm:"column:end_time"`
+	GameMode string    `gorm:"column:game_mode"`
+	EndTime  time.Time `gorm:"column:end_time"`
 	Duration int64     `gorm:"column:duration"`
 
 	Productivity    int `gorm:"column:productivity"`
