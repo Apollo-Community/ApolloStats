@@ -44,7 +44,6 @@ func (i *Instance) Init() {
 	i.router.GET("/", i.index)
 	i.router.GET("/bans", i.bans)
 	i.router.GET("/account_items", i.account_items)
-	i.router.GET("/deaths", i.deaths)
 	i.router.GET("/rounds", i.rounds)
 	i.router.GET("/round/:round_id", i.round_detail)
 }
@@ -71,13 +70,6 @@ func (i *Instance) account_items(c *gin.Context) {
 	c.HTML(http.StatusOK, "account_items.html", gin.H{
 		"pagetitle":    "Account Items",
 		"AccountItems": i.DB.AllAccountItems(),
-	})
-}
-
-func (i *Instance) deaths(c *gin.Context) {
-	c.HTML(http.StatusOK, "deaths.html", gin.H{
-		"pagetitle": "Deaths",
-		"Deaths":    i.DB.AllDeaths(),
 	})
 }
 
