@@ -55,3 +55,21 @@ func (db *DB) GetRound(id int64) (*RoundStats, error) {
 	}
 	return &tmp, nil
 }
+
+func (db *DB) GetAntags(id int64) []*RoundAntags {
+	var tmp []*RoundAntags
+	db.Order("round_id desc, name asc").Where("round_id = ?", id).Find(&tmp)
+	return tmp
+}
+
+func (db *DB) GetAILaws(id int64) []*RoundAILaws {
+	var tmp []*RoundAILaws
+	db.Order("round_id desc, law asc").Where("round_id = ?", id).Find(&tmp)
+	return tmp
+}
+
+func (db *DB) GetDeaths(id int64) []*Death {
+	var tmp []*Death
+	db.Order("round_id desc, name asc").Where("round_id = ?", id).Find(&tmp)
+	return tmp
+}

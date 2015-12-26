@@ -104,8 +104,15 @@ func (i *Instance) round_detail(c *gin.Context) {
 		return
 	}
 
+	antags := i.DB.GetAntags(id)
+	ai_laws := i.DB.GetAILaws(id)
+	deaths := i.DB.GetDeaths(id)
+
 	c.HTML(http.StatusOK, "round_detail.html", gin.H{
 		"pagetitle": fmt.Sprintf("Round #%d", round.ID),
 		"Round":     round,
+		"Antags":    antags,
+		"AILaws":    ai_laws,
+		"Deaths":    deaths,
 	})
 }
