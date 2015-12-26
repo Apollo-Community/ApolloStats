@@ -13,6 +13,128 @@ td.min-width {
     min-width: 130px;
 }
 
+/* Round Details **************************************************************/
+.round-header {
+    margin-top: 10px;
+    padding: 25px 50px;
+    font-size: 1.4em;
+    background-color: black;
+    overflow: hidden;
+}
+
+.round-header > div > span {
+    display: inline-block;
+    width: 250px;
+}
+
+.round-header .smalldetail {
+    font-size: 0.6em;
+}
+
+.block-list {
+    margin: 0px;
+    margin-top: 5px;
+    list-style-type: none;
+    font-size: 1.2em;
+}
+.block-list li{
+    padding: 5px 50px;
+    margin-bottom: 5px;
+    background-color: black;
+    overflow: hidden;
+}
+
+.block-list div {
+    text-align: center;
+}
+
+.block-list span {
+    display: inline-block;
+}
+
+.block-list a, .block-list a:hover {
+    text-decoration: none;
+}
+
+.block-list .id {
+    width: 50px;
+}
+
+.block-list .ban {
+    width: 125px;
+}
+
+.block-list .time {
+    width: 135px;
+}
+
+.block-list .text {
+    width: 200px;
+}
+
+.block-list .long {
+    width: 400px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.block-list .smalldetail {
+    width: 70px;
+    font-size: 0.7em;
+}
+
+.block-list .success {
+    width: 70px;
+    color: green;
+}
+
+.block-list .failed {
+    width: 70px;
+    color: red;
+}
+
+.block-list .brute {
+    width: 30px;
+    color: yellow;
+}
+
+.block-list .brain {
+    width: 30px;
+    color: green;
+}
+
+.block-list .fire {
+    width: 30px;
+    color: red;
+}
+
+.block-list .oxygen {
+    width: 30px;
+    color: blue;
+}
+
+.stats {
+    background-color: black;
+    overflow: hidden;
+    padding: 5px;
+}
+
+.stats .bg {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.stats ul {
+    list-style-type: none;
+    font-size: 1.2em;
+    margin: 0px;
+}
+
+.stats span {
+    display: inline-block;
+    width: 160px;
+}
+
 /* Utils **********************************************************************/
 .right {
     float: right;
@@ -20,6 +142,10 @@ td.min-width {
 
 .left {
     float: left;
+}
+
+.center {
+    text-align: center;
 }
 
 .bold {
