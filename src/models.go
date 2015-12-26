@@ -60,8 +60,9 @@ func (d *Death) TableName() string {
 }
 
 func (d *Death) RoomName() string {
+	// TODO: fix this thing in the byond source.
 	// Cleanup the room name
-	return strings.Trim(d.Room, "Ã¿")
+	return strings.Trim(d.Room, "ÿ")
 }
 
 type RoundAntags struct {
