@@ -6,30 +6,61 @@
     <li>Gamemode: {{.Round.Gamemode}}</li>
     <li>Round ended at: {{.Round.Endtime | pretty_time}}</li>
     <li>Duration: {{.Round.Duration}} minutes</li>
+    <li>Crew Productivity: {{.Round.Productivity}}%</li>
 </ul>
 
-{{if .Round.AntagList}}
-Antagonists:
-<ul>
-    {{range .Round.AntagList}}
-    <li>{{.}}</li>
-    {{end}}
-</ul>
-{{end}}
-
-{{if .Round.AILawList}}
+{{if .AILaws}}
 Uploaded AI Laws:
 <ul>
-    {{range .Round.AILawList}}
-    <li>{{.}}</li>
+    {{range .AILaws}}
+    <li>{{.Law}}</li>
     {{end}}
 </ul>
 {{end}}
 
-<div style="width: 50%; margin: auto;">
+{{if .Antags}}
+Antagonists:
+<ul class="topiclist">
+    {{range .Antags}}
+    <li class="row"><dl class="icon forum_link"><dt>{{.Name}} the {{.Job}} was a 
+        {{if .Success}}
+            successful
+        {{else}}
+            failed
+        {{end}}
+        {{.Role}}</dt><dd></dd></dl></li>
+    {{end}}
+</ul>
+{{end}}
+
+{{if .Deaths}}
+Deaths:
+<table>
+    <tr>
+        <th>Time</th>
+        <th>Name</th>
+        <th>(Job)</th>
+        <th>Room</th>
+        <th>(Position)</th>
+        <th>Damage</th>
+    </tr>
+    {{ range .Deaths}}
+    <tr class="borders">
+        <td class="padded min-width">At {{.Timestamp | pretty_time}}</td>
+        <td class="padded">{{.Name}}</td>
+        <td class="padded">The {{.Job}}</td>
+        <td class="padded">Died in {{.RoomName}}</td>
+        <td class="padded">{{.Position}}</td>
+        <td class="padded">With {{.Brute}}, {{.Brain}}, {{.Fire}}, {{.Oxygen}}</td>
+    </tr>
+    {{end}}
+</table>
+{{end}}
+
+Statistics:
+<div style="width: 50%; margin: auto; overflow: hidden;">
     <div class="left">
         <ul class="">
-            <li>Crew Productivity: {{.Round.Productivity}}%</li>
             <li>Structual damages: ${{.Round.DamageCost}}</li>
             <li>Deaths: {{.Round.Deaths}}</li>
             <li>Crew reconstituted: {{.Round.Clones}} clones</li>
@@ -38,14 +69,14 @@ Uploaded AI Laws:
             <li>Items vended: {{.Round.Vended}}</li>
             <li>Crew ran: {{.Round.RunDistance}} marathons</li>
             <li>Total blood mopped: {{.Round.BloodMopped}}L</li>
-            <li>Break time: {{.Round.BreakTime}}</li>
+            <li>Time spent on break: {{.Round.BreakTime}} minutes</li>
             <li>Monkeys slain: {{.Round.MonkeyDeaths}}</li>
+            <li>Spam blocked: {{.Round.SpamBlocked}} messages</li>
         </ul>
     </div>
 
     <div class="right">
         <ul class="">
-            <li>Spam blocked: {{.Round.SpamBlocked}} messages</li>
             <li>Wet signs ignored: {{.Round.PeopleSlipped}}</li>
             <li>Waiting for doors: {{.Round.DoorsOpened}} seconds</li>
             <li>Total "warning" shots: {{.Round.GunsFired}}</li>
@@ -56,6 +87,7 @@ Uploaded AI Laws:
             <li>Cargo profit: ${{.Round.CargoProfit}}</li>
             <li>Space trash created: {{.Round.TrashVented}}</li>
             <li>People watched: {{.Round.AIFollow}}</li>
+            <li>People fired: {{.Round.Banned}}</li>
         </ul>
     </div>
 </div>

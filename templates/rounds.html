@@ -6,8 +6,7 @@
         <th>End Time</th>
         <th>Game Mode</th>
         <th>Duration</th>
-        <th>Deaths</th>
-        <th>Antags</th>
+        <th>Productivity</th>
         <th></th>
     </tr>
     {{ range .Rounds}}
@@ -15,8 +14,7 @@
         <td class="padded min-width">{{.Endtime | pretty_time}}</td>
         <td class="padded">{{.Gamemode}}</td>
         <td class="padded">{{.Duration}}min</td>
-        <td class="padded">{{.Deaths}}</td>
-        <td class="padded">{{.AntagList | len}}</td>
+        <td class="padded">{{.Productivity}}%</td>
         <td class="padded"><a href="/round/{{.ID}}">Details</a></td>
     </tr>
     {{end}}
