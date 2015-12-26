@@ -43,6 +43,7 @@ func (a *AccountItem) TableName() string {
 
 type Death struct {
 	ID        int64     `gorm:"column:id;primary_key"`
+	RoundID   int64     `gorm:"column:round_id"`
 	Timestamp time.Time `gorm:"column:tod"`
 	Name      string    `gorm:"column:name"`
 	Job       string    `gorm:"column:job"`
@@ -55,7 +56,7 @@ type Death struct {
 }
 
 func (d *Death) TableName() string {
-	return "death"
+	return "deaths"
 }
 
 func (d *Death) RoomName() string {
@@ -63,14 +64,34 @@ func (d *Death) RoomName() string {
 	return strings.Trim(d.Room, "Ã¿")
 }
 
+type RoundAntags struct {
+	ID      int64  `gorm:"column:id"`
+	RoundID int64  `gorm:"column:round_id"`
+	Name    string `gorm:"column:name"`
+	Job     string `gorm:"column:job"`
+	Role    string `gorm:"column:role"`
+	Success bool   `gorm:"column:success"`
+}
+
+func (r *RoundAntags) TableName() string {
+	return "round_antags"
+}
+
+type RoundAILaws struct {
+	ID      int64  `gorm:"column:id"`
+	RoundID int64  `gorm:"column:round_id"`
+	Law     string `gorm:"column:law"`
+}
+
+func (r *RoundAILaws) TableName() string {
+	return "round_ai_laws"
+}
+
 type RoundStats struct {
 	ID       int64     `gorm:"column:id"`
 	Gamemode string    `gorm:"column:gamemode"`
 	Endtime  time.Time `gorm:"column:endtime"`
 	Duration int64     `gorm:"column:duration"`
-
-	Antags string `gorm:"column:antags"`
-	AILaws string `gorm:"column:ai_laws"`
 
 	Productivity    int `gorm:"column:productivity"`
 	Deaths          int `gorm:"column:deaths"`
@@ -94,24 +115,9 @@ type RoundStats struct {
 	CargoProfit     int `gorm:"column:cargo_profit"`
 	TrashVented     int `gorm:"column:trash_vented"`
 	AIFollow        int `gorm:"column:ai_follow"`
+	Banned          int `gorm:"column:banned"`
 }
 
 func (r *RoundStats) TableName() string {
 	return "round_stats"
-}
-
-func (r *RoundStats) AntagList() []string {
-	s := strings.Split(strings.Trim(r.Antags, ", "), ", ")
-	if len(s) == 1 && len(s[0]) < 1 {
-		return nil
-	}
-	return s
-}
-
-func (r *RoundStats) AILawList() []string {
-	s := strings.Split(strings.Trim(r.AILaws, ", "), ", ")
-	if len(s) == 1 && len(s[0]) < 1 {
-		return nil
-	}
-	return s
 }
