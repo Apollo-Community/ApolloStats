@@ -89,8 +89,8 @@ func (r *RoundAILaws) TableName() string {
 
 type RoundStats struct {
 	ID       int64     `gorm:"column:id"`
-	Gamemode string    `gorm:"column:gamemode"`
-	Endtime  time.Time `gorm:"column:endtime"`
+	Gamemode string    `gorm:"column:game_mode"`
+	Endtime  time.Time `gorm:"column:end_time"`
 	Duration int64     `gorm:"column:duration"`
 
 	Productivity    int `gorm:"column:productivity"`
