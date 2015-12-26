@@ -1,24 +1,20 @@
 {{template "header" .}}
 {{template "panelhead" "Latest rounds"}}
 
-<table>
-    <tr>
-        <th>End Time</th>
-        <th>Game Mode</th>
-        <th>Duration</th>
-        <th>Productivity</th>
-        <th></th>
-    </tr>
-    {{ range .Rounds}}
-    <tr class="borders">
-        <td class="padded min-width">{{.Endtime | pretty_time}}</td>
-        <td class="padded">{{.Gamemode}}</td>
-        <td class="padded">{{.Duration}}min</td>
-        <td class="padded">{{.Productivity}}%</td>
-        <td class="padded"><a href="/round/{{.ID}}">Details</a></td>
-    </tr>
+<ul class="block-list">
+    {{range .Rounds}}
+    <li>
+        <div>
+        <a href="/round/{{.ID}}">
+            <span class="id">#{{.ID}}</span>
+            <span class="text">{{.GameMode}}</span>
+            <span class="time">{{.EndTime | pretty_time}}</span>
+            <span class="text">{{.Duration}} minutes</span>
+        </a>
+        </div>
+    </li>
     {{end}}
-</table>
+</ul>
 
 {{template "panelfoot"}}
 {{template "footer"}}

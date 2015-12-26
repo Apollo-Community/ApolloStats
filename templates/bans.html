@@ -1,20 +1,19 @@
 {{template "header" .}}
 {{template "panelhead" "Latest bans"}}
-<table>
-    <tr>
-        <th>Player</th>
-        <th>Expires</th>
-        <th>Admin</th>
-        <th>Reason</th>
-    </tr>
-    {{ range .Bans}}
-    <tr class="borders">
-        <td class="padded">{{.CKey}}</td>
-        <td class="padded min-width">{{.Expires}}</td>
-        <td class="padded">{{.Admin}}</td>
-        <td class="padded">{{.Reason}}</td>
-    </tr>
+
+<ul class="block-list">
+    {{range .Bans}}
+    <li>
+        <div>
+            <span class="text">{{.CKey}}</span>
+            <span class="ban">{{.BanType}}</span>
+            <span class="time">{{.Expires}}</span>
+            <span class="text">{{.Admin}}</span>
+            <span class="long">{{.Reason}}</span>
+        </div>
+    </li>
     {{end}}
-</table>
+</ul>
+
 {{template "panelfoot"}}
 {{template "footer"}}

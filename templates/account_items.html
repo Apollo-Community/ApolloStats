@@ -1,18 +1,17 @@
 {{template "header" .}}
 {{template "panelhead" "Latest account items awarded to players"}}
-<table>
-    <tr>
-        <th>Time</th>
-        <th>Player</th>
-        <th>Item</th>
-    </tr>
-    {{ range .AccountItems}}
-    <tr class="borders">
-        <td class="padded min-width">{{.Timestamp | pretty_time}}</td>
-        <td class="padded">{{.CKey}}</td>
-        <td class="padded">{{.Item}}</td>
-    </tr>
+
+<ul class="block-list">
+    {{range .AccountItems}}
+    <li>
+        <div>
+            <span class="time">{{.Timestamp | pretty_time}}</span>
+            <span class="text">{{.CKey}}</span>
+            <span class="text">{{.Item}}</span>
+        </div>
+    </li>
     {{end}}
-</table>
+</ul>
+
 {{template "panelfoot"}}
 {{template "footer"}}
