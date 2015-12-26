@@ -1,94 +1,113 @@
 {{template "header" .}}
 {{template "panelhead" "Round stats"}}
 
-<ul class="">
-    <li>Round #{{.Round.ID}}</li>
-    <li>Gamemode: {{.Round.Gamemode}}</li>
-    <li>Round ended at: {{.Round.Endtime | pretty_time}}</li>
-    <li>Duration: {{.Round.Duration}} minutes</li>
-    <li>Crew Productivity: {{.Round.Productivity}}%</li>
-</ul>
+<div style="margin-top:10px; padding:25px 50px; font-size:1.4em; background-color:black; overflow:hidden;">
+    <div style="text-align:center;">
+        <span style="display:inline-block; width:15%;">
+            <span style="font-size:0.6em;">Round</span> #{{.Round.ID}}
+        </span>
+        <span style="display:inline-block; width:20%;">
+            <span style="font-size:0.6em;">Game mode</span> {{.Round.Gamemode}}
+        </span>
+        <span style="display:inline-block; width:25%;">
+            <span style="font-size:0.6em;">Ended at</span> {{.Round.Endtime | pretty_time}}
+        </span>
+        <span style="display:inline-block; width:15%;">
+            <span style="font-size:0.6em;">Duration</span> {{.Round.Duration}} minutes
+        </span>
+    </div>
+</div>
 
 {{if .AILaws}}
-Uploaded AI Laws:
-<ul>
+<h1>Uploaded AI Laws</h1>
+<ul style="margin:0px; list-style-type:none; font-size:1.2em;">
     {{range .AILaws}}
-    <li>{{.Law}}</li>
+    <li style="padding:5px 50px; margin-bottom:0.5em; background-color:black; overflow:hidden;">
+        {{.Law}}
+    </li>
     {{end}}
 </ul>
 {{end}}
 
 {{if .Antags}}
-Antagonists:
-<ul class="topiclist">
-    {{range .Antags}}
-    <li class="row"><dl class="icon forum_link"><dt>{{.Name}} the {{.Job}} was a 
-        {{if .Success}}
-            successful
-        {{else}}
-            failed
+<h1>Antagonists</h1>
+    <ul style="margin: 0px; list-style-type: none; font-size:1.2em;">
+        {{range .Antags}}
+        <li style="padding: 5px 50px; margin-bottom: 0.5em; background-color: black; overflow:hidden;">
+            <div style="text-align:center;">
+                <span style="display: inline-block; width:30%;">{{.Name}}</span>
+                <span style="display: inline-block; width:20%;">the {{.Job}}</span>
+                <span style="display: inline-block; width:40px; font-size:0.7em;">was a</span>
+                {{if .Success}}
+                    <span style="display: inline-block; width:10%; color:green;">successful</span>
+                {{else}}
+                    <span style="display: inline-block; width:10%; color:red;">miserable</span>
+                {{end}}
+                <span style="display: inline-block; width:10%;">{{.Role}}</span>
+            </div>
+        </li>
         {{end}}
-        {{.Role}}</dt><dd></dd></dl></li>
-    {{end}}
-</ul>
+    </ul>
 {{end}}
 
 {{if .Deaths}}
-Deaths:
-<table>
-    <tr>
-        <th>Time</th>
-        <th>Name</th>
-        <th>(Job)</th>
-        <th>Room</th>
-        <th>(Position)</th>
-        <th>Damage</th>
-    </tr>
-    {{ range .Deaths}}
-    <tr class="borders">
-        <td class="padded min-width">At {{.Timestamp | pretty_time}}</td>
-        <td class="padded">{{.Name}}</td>
-        <td class="padded">The {{.Job}}</td>
-        <td class="padded">Died in {{.RoomName}}</td>
-        <td class="padded">{{.Position}}</td>
-        <td class="padded">With {{.Brute}}, {{.Brain}}, {{.Fire}}, {{.Oxygen}}</td>
-    </tr>
-    {{end}}
-</table>
+<h1>Crew Deaths</h1>
+    <ul style="margin: 0px; list-style-type: none; font-size:1.2em;">
+        {{range .Deaths}}
+        <li style="padding: 5px 50px; margin-bottom: 0.5em; background-color: black; overflow:hidden;">
+            <div style="text-align:center;">
+                <span style="display: inline-block; width:20%;">{{.Name}}</span>
+                <span style="display: inline-block; width:20%;">the {{.Job}}</span>
+                <span style="display: inline-block; width:40px; font-size:0.7em;">died in</span>
+                <span style="display: inline-block; width:20%;">{{.RoomName}}</span>
+                <span style="display: inline-block; width:10%; font-size:0.7em;">({{.Position}})</span>
+                <span style="display: inline-block; width:40px; font-size:0.7em;">with</span>
+                <span style="display:inline-block; width:30px; color:red;">{{.Brute}}</span>
+                <span style="display:inline-block; width:30px; color:yellow;">{{.Brain}}</span>
+                <span style="display:inline-block; width:30px; color:green;">{{.Fire}}</span>
+                <span style="display:inline-block; width:30px; color:blue;">{{.Oxygen}}</span>
+                <span style="display: inline-block; width:40px; font-size:0.7em;">damage</span>
+            </div>
+        </li>
+        {{end}}
+    </ul>
 {{end}}
 
-Statistics:
-<div style="width: 50%; margin: auto; overflow: hidden;">
+<h1>Statistics</h1>
+<div style="background-color:black; overflow:hidden; padding:5px;">
+    <div style="width:50%; margin:0 auto;">
     <div class="left">
-        <ul class="">
-            <li>Structual damages: ${{.Round.DamageCost}}</li>
-            <li>Deaths: {{.Round.Deaths}}</li>
-            <li>Crew reconstituted: {{.Round.Clones}} clones</li>
-            <li>Chemicals vended: {{.Round.DispenseVolume}}L</li>
-            <li>Bombs exploded: {{.Round.BombsExploded}}</li>
-            <li>Items vended: {{.Round.Vended}}</li>
-            <li>Crew ran: {{.Round.RunDistance}} marathons</li>
-            <li>Total blood mopped: {{.Round.BloodMopped}}L</li>
-            <li>Time spent on break: {{.Round.BreakTime}} minutes</li>
-            <li>Monkeys slain: {{.Round.MonkeyDeaths}}</li>
-            <li>Spam blocked: {{.Round.SpamBlocked}} messages</li>
+        <ul style="list-style-type:none; font-size:1.2em; margin:0px;">
+            <li><span style="display:inline-block; width:160px;">Crew productivity:</span> {{.Round.Productivity}}%</li>
+            <li><span style="display:inline-block; width:160px;">Structual damages:</span> ${{.Round.DamageCost}}</li>
+            <li><span style="display:inline-block; width:160px;">Total deaths:</span> {{.Round.Deaths}}</li>
+            <li><span style="display:inline-block; width:160px;">Crew reconstituted:</span> {{.Round.Clones}} clones</li>
+            <li><span style="display:inline-block; width:160px;">Chemicals vended:</span> {{.Round.DispenseVolume}}L</li>
+            <li><span style="display:inline-block; width:160px;">Bombs exploded:</span> {{.Round.BombsExploded}}</li>
+            <li><span style="display:inline-block; width:160px;">Items vended:</span> {{.Round.Vended}}</li>
+            <li><span style="display:inline-block; width:160px;">Crew ran:</span> {{.Round.RunDistance}} marathons</li>
+            <li><span style="display:inline-block; width:160px;">Total blood mopped:</span> {{.Round.BloodMopped}}L</li>
+            <li><span style="display:inline-block; width:160px;">Time spent on break:</span> {{.Round.BreakTime}} minutes</li>
+            <li><span style="display:inline-block; width:160px;">Monkeys slain:</span> {{.Round.MonkeyDeaths}}</li>
+            <li><span style="display:inline-block; width:160px;">Spam blocked:</span> {{.Round.SpamBlocked}} messages</li>
         </ul>
     </div>
 
     <div class="right">
-        <ul class="">
-            <li>Wet signs ignored: {{.Round.PeopleSlipped}}</li>
-            <li>Waiting for doors: {{.Round.DoorsOpened}} seconds</li>
-            <li>Total "warning" shots: {{.Round.GunsFired}}</li>
-            <li>Justice served: {{.Round.BeepskyBeatings}} beatings</li>
-            <li>Doors "locked": {{.Round.DoorsWelded}}</li>
-            <li>Power produced: {{.Round.Totalkwh}}kWh</li>
-            <li>Artifacts: {{.Round.Artifacts}}</li>
-            <li>Cargo profit: ${{.Round.CargoProfit}}</li>
-            <li>Space trash created: {{.Round.TrashVented}}</li>
-            <li>People watched: {{.Round.AIFollow}}</li>
-            <li>People fired: {{.Round.Banned}}</li>
+        <ul style="list-style-type:none; font-size:1.2em;">
+            <li><span style="display:inline-block; width:160px;">Wet signs ignored:</span> {{.Round.PeopleSlipped}}</li>
+            <li><span style="display:inline-block; width:160px;">Waiting for doors:</span> {{.Round.DoorsOpened}} seconds</li>
+            <li><span style="display:inline-block; width:160px;">Total "warning" shots:</span> {{.Round.GunsFired}}</li>
+            <li><span style="display:inline-block; width:160px;">Justice served:</span> {{.Round.BeepskyBeatings}} beatings</li>
+            <li><span style="display:inline-block; width:160px;">Doors "locked":</span> {{.Round.DoorsWelded}}</li>
+            <li><span style="display:inline-block; width:160px;">Power produced:</span> {{.Round.Totalkwh}}kWh</li>
+            <li><span style="display:inline-block; width:160px;">Artifacts:</span> {{.Round.Artifacts}}</li>
+            <li><span style="display:inline-block; width:160px;">Cargo profit:</span> ${{.Round.CargoProfit}}</li>
+            <li><span style="display:inline-block; width:160px;">Space trash created:</span> {{.Round.TrashVented}}</li>
+            <li><span style="display:inline-block; width:160px;">People watched:</span> {{.Round.AIFollow}}</li>
+            <li><span style="display:inline-block; width:160px;">People fired:</span> {{.Round.Banned}}</li>
         </ul>
+    </div>
     </div>
 </div>
 
