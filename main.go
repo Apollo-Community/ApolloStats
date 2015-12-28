@@ -47,8 +47,7 @@ func main() {
 }
 
 func run_server(c *cli.Context) {
-	tmp := fmt.Sprintf("%s?charset=utf8&parseTime=True&loc=Local", g_database)
-	db, e := apollostats.OpenDB(tmp)
+	db, e := apollostats.OpenDB(g_database)
 	if e != nil {
 		fmt.Printf("Failed to connect to the database:\n%s\n", e.Error())
 		return

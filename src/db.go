@@ -16,8 +16,9 @@ type DB struct {
 	*gorm.DB
 }
 
-func OpenDB(args ...interface{}) (*DB, error) {
-	db, e := gorm.Open("mysql", args...)
+func OpenDB(DSN string) (*DB, error) {
+	tmp := fmt.Sprintf("%s?parseTime=True", DSN)
+	db, e := gorm.Open("mysql", tmp)
 	if e != nil {
 		return nil, e
 	}
