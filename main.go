@@ -1,30 +1,71 @@
 package main
 
 import (
-	"flag"
 	"fmt"
+	"os"
 
+	"github.com/codegangsta/cli"
 	"github.com/lmas/ApolloStats/src"
 )
 
 var (
-	f_debug = flag.Bool("debug", true, "Run in debug mode")
-	f_addr  = flag.String("addr", "127.0.0.1:8000", "Server's listening address")
-	f_db    = flag.String("db", "apollo:apollo@/apollo", "Database authentication string")
+	g_addr     string
+	g_database string
+	g_debug    bool
 )
 
 func main() {
-	tmp := fmt.Sprintf("%s?charset=utf8&parseTime=True&loc=Local", *f_db)
+	app := cli.NewApp()
+	app.Version = apollostats.VERSION
+	app.Usage = "Run a web server, serving stats for Apollo."
+	app.Flags = []cli.Flag{
+		cli.StringFlag{
+			Name:        "addr, a",
+			Value:       "127.0.0.1:8000",
+			Usage:       "serve web pages on this address",
+			EnvVar:      "APOLLOSTATS_ADDR",
+			Destination: &g_addr,
+		},
+		cli.StringFlag{
+			Name:        "database, d",
+			Value:       "user:password@/database",
+			Usage:       "database authentication string",
+			EnvVar:      "APOLLOSTATS_DBAUTH",
+			Destination: &g_database,
+		},
+		cli.BoolFlag{
+			Name:        "debug",
+			Usage:       "run in debug mode",
+			Destination: &g_debug,
+		},
+	}
+	app.Commands = []cli.Command{
+		{Name: "run", Usage: "Run the web server", Action: run_server},
+		{Name: "update", Usage: "Update to the latest version", Action: run_update},
+	}
+	app.Run(os.Args)
+}
+
+func run_server(c *cli.Context) {
+	tmp := fmt.Sprintf("%s?charset=utf8&parseTime=True&loc=Local", g_database)
+	fmt.Println(g_debug, tmp)
 	db, e := apollostats.OpenDB(tmp)
 	if e != nil {
-		panic(e)
+		fmt.Printf("Failed to connect to the database:\n%s\n", e.Error())
+		return
 	}
 
 	i := apollostats.Instance{
-		Debug: *f_debug,
+		Debug: g_debug,
 		DB:    db,
 	}
 
+	if g_debug {
+		show_banner()
+	}
 	i.Init()
-	i.Serve(*f_addr)
+	i.Serve(g_addr)
+}
+
+func run_update(c *cli.Context) {
 }
