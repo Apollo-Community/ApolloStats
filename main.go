@@ -42,7 +42,6 @@ func main() {
 	}
 	app.Commands = []cli.Command{
 		{Name: "run", Usage: "Run the web server", Action: run_server},
-		{Name: "update", Usage: "Update to the latest version", Action: run_update},
 	}
 	app.Run(os.Args)
 }
@@ -60,7 +59,4 @@ func run_server(c *cli.Context) {
 
 	i.Init()
 	i.Serve(g_addr)
-}
-
-func run_update(c *cli.Context) {
 }
