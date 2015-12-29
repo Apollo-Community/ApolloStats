@@ -103,28 +103,15 @@ func (i *Instance) rounds(c *gin.Context) {
 func (i *Instance) round_detail(c *gin.Context) {
 	id, e := strconv.ParseInt(c.Param("round_id"), 10, 0)
 	if e != nil {
-		// TODO: error page
-		//c.AbortWithError(http.StatusNotFound, fmt.Errorf("Round not found"))
-		c.String(http.StatusNotFound, "Round not found")
-		return
+		id = -1
 	}
-
-	round, e := i.DB.GetRound(id)
-	if e != nil {
-		//c.AbortWithError(http.StatusNotFound, e)
-		c.String(http.StatusNotFound, "Round not found")
-		return
-	}
-
-	antags := i.DB.GetAntags(id)
-	ai_laws := i.DB.GetAILaws(id)
-	deaths := i.DB.GetDeaths(id)
+	round := i.DB.GetRound(id)
 
 	c.HTML(http.StatusOK, "round_detail.html", gin.H{
 		"pagetitle": fmt.Sprintf("Round #%d", round.ID),
 		"Round":     round,
-		"Antags":    antags,
-		"AILaws":    ai_laws,
-		"Deaths":    deaths,
+		"Antags":    i.DB.GetAntags(id),
+		"AILaws":    i.DB.GetAILaws(id),
+		"Deaths":    i.DB.GetDeaths(id),
 	})
 }

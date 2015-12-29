@@ -49,12 +49,10 @@ func (db *DB) AllRounds() []*RoundStats {
 	return tmp
 }
 
-func (db *DB) GetRound(id int64) (*RoundStats, error) {
+func (db *DB) GetRound(id int64) *RoundStats {
 	var tmp RoundStats
-	if db.First(&tmp, id).RecordNotFound() {
-		return nil, fmt.Errorf("Round not found")
-	}
-	return &tmp, nil
+	db.First(&tmp, id)
+	return &tmp
 }
 
 func (db *DB) GetAntags(id int64) []*RoundAntags {
