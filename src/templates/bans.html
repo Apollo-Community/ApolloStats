@@ -1,6 +1,7 @@
 {{template "header" .}}
 {{template "panelhead" "Latest bans"}}
 
+{{if .Bans}}
 <ul class="block-list">
     {{range .Bans}}
     <li>
@@ -14,6 +15,9 @@
     </li>
     {{end}}
 </ul>
+{{else}}
+<p class="error center">Sorry, can't find any bans!</p>
+{{end}}
 
 {{template "panelfoot"}}
 {{template "footer"}}

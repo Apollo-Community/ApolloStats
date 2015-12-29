@@ -1,6 +1,7 @@
 {{template "header" .}}
 {{template "panelhead" "Latest account items awarded to players"}}
 
+{{if .AccountItems}}
 <ul class="block-list">
     {{range .AccountItems}}
     <li>
@@ -12,6 +13,9 @@
     </li>
     {{end}}
 </ul>
+{{else}}
+<p class="error center">Sorry, can't find any account items!</p>
+{{end}}
 
 {{template "panelfoot"}}
 {{template "footer"}}

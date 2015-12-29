@@ -1,6 +1,7 @@
 {{template "header" .}}
 {{template "panelhead" "Latest rounds"}}
 
+{{if .Rounds}}
 <ul class="block-list">
     {{range .Rounds}}
     <li>
@@ -15,6 +16,9 @@
     </li>
     {{end}}
 </ul>
+{{else}}
+<p class="error center">Sorry, can't find any rounds!</p>
+{{end}}
 
 {{template "panelfoot"}}
 {{template "footer"}}

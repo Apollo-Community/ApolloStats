@@ -1,6 +1,7 @@
 {{template "header" .}}
 {{template "panelhead" "Round stats"}}
 
+{{if .Round.ID | lt 0}}
 <div class="round-header">
     <div class="center">
         <span>Round #{{.Round.ID}}</span>
@@ -101,6 +102,9 @@
     </div>
     </div>
 </div>
+{{else}}
+<p class="error center">Sorry, can't find this round!</p>
+{{end}}
 
 {{template "panelfoot"}}
 {{template "footer"}}
