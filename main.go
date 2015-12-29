@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/Apollo-Community/ApolloStats/src"
 	"github.com/codegangsta/cli"
-	"github.com/lmas/ApolloStats/src"
 )
 
 var (
