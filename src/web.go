@@ -3,10 +3,13 @@ package apollostats
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
+	"github.com/GeertJohan/go.rice"
 	"github.com/gin-gonic/gin"
 )
 
@@ -35,11 +38,27 @@ func (i *Instance) Init() {
 			return time.Now().Year()
 		},
 	}
-	tmpl := template.Must(template.New("ServerTemplates").Funcs(funcmap).ParseGlob("templates/*"))
-	i.router.SetHTMLTemplate(tmpl)
+
+	//tmpl := template.Must(template.New("ServerTemplates").Funcs(funcmap).ParseGlob("templates/*"))
+	templatebox := rice.MustFindBox("templates")
+	templates := template.New("ServerTemplates").Funcs(funcmap)
+	templatebox.Walk("/", func(p string, i os.FileInfo, e error) error {
+		if i.IsDir() {
+			return nil
+		}
+		s, e := templatebox.String(p)
+		if e != nil {
+			log.Fatalf("Failed to load templates:\n%s\n", e)
+		}
+		template.Must(templates.New(p).Parse(s))
+		return nil
+	})
+	i.router.SetHTMLTemplate(templates)
 
 	// Setup all URLS
-	i.router.Static("/static", "./static")
+	//i.router.Static("/static", "./static")
+	static := rice.MustFindBox("static")
+	i.router.StaticFS("/static/", static.HTTPBox())
 
 	i.router.GET("/", i.index)
 	i.router.GET("/bans", i.bans)
