@@ -9,8 +9,10 @@ TODO
 
 Templates:
 - Show some nice error pages.
-- Use existing assets from the forum, such as css and logos.
-- Replace links for tmp static assets with ext. assets to forum server.
+- Needs some fallback for when we can't load css from forums?
+
+Database:
+- Timeout and show error when we can't connect to the ext. db.
 
 Account items:
 - Would be nice to show why a player got an item too.
