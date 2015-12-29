@@ -29,7 +29,7 @@ func (i *Instance) Init() {
 	// TODO: replace Default with New and use custom logger and stuff
 	i.router = gin.Default()
 
-	// Load templates
+	// Custom functions for the templates
 	funcmap := template.FuncMap{
 		"pretty_time": func(t time.Time) string {
 			return t.Format("2006-01-02 15:04 MST")
@@ -39,9 +39,10 @@ func (i *Instance) Init() {
 		},
 	}
 
-	//tmpl := template.Must(template.New("ServerTemplates").Funcs(funcmap).ParseGlob("templates/*"))
+	// Load templates
 	templatebox := rice.MustFindBox("templates")
 	templates := template.New("ServerTemplates").Funcs(funcmap)
+	// Iterate over all templates and mash them together
 	templatebox.Walk("", func(p string, i os.FileInfo, e error) error {
 		if i.IsDir() {
 			return nil
@@ -55,11 +56,11 @@ func (i *Instance) Init() {
 	})
 	i.router.SetHTMLTemplate(templates)
 
-	// Setup all URLS
-	//i.router.Static("/static", "./static")
+	// And static files
 	static := rice.MustFindBox("static")
 	i.router.StaticFS("/static/", static.HTTPBox())
 
+	// Setup all views
 	i.router.GET("/", i.index)
 	i.router.GET("/bans", i.bans)
 	i.router.GET("/account_items", i.account_items)
