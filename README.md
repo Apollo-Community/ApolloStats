@@ -21,12 +21,14 @@ Compile time dependencies:
 - [gorm](https://github.com/jinzhu/gorm)
 
 Compilation:
+
 Download the source code (via `go get`, `git` or from a [zipped archive](https://github.com/Apollo-Community/ApolloStats/archive/v0.1.zip)).
 Open the directory with the source code and run `go build` to compile the code.
 You will now have a `ApolloStats` binary in the dir, which you can run to start
 the web server.
 
 Stand alone binary:
+
 TODO
 
 Usage
@@ -55,6 +57,7 @@ GLOBAL OPTIONS:
 ```
 
 Environment variables:
+
 TODO
 
 TODO
