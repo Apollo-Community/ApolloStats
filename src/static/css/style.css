@@ -22,13 +22,18 @@ td.min-width {
     overflow: hidden;
 }
 
-.round-header > div > span {
+.round-header span {
     display: inline-block;
     width: 250px;
 }
 
 .round-header .smalldetail {
     font-size: 0.6em;
+    display: inline;
+}
+
+.round-header a, .round-header a:hover {
+    text-decoration: none;
 }
 
 .block-list {
