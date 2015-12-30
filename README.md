@@ -7,9 +7,15 @@ With heavy inspiration from other servers' webpages such as [Goon](http://goonhu
 TODO
 --------------------------------------------------------------------------------
 
+Readme:
+- Usage instructions.
+- Depency list.
+- Credits.
+
 Templates:
 - Show some nice error pages.
 - Needs some fallback for when we can't load css from forums?
+- Change the colors used in css.
 
 Database:
 - Timeout and show error when we can't connect to the ext. db.
