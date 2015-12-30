@@ -1,19 +1,33 @@
 {{template "header" .}}
-{{template "panelhead" "News"}}
-        Some news here.
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        TODO!
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        end of list
+{{template "panelhead" "About"}}
+<br />
+<br />
+TODO
+<br />
+<br />
+{{template "panelfoot"}}
+
+{{template "panelhead" "Latest Round"}}
+{{if .Round}}
+<div class="round-header">
+    <div class="center">
+        <a href="/round/{{.Round.ID}}">
+        <span>Round #{{.Round.ID}}</span>
+        <span><span class="smalldetail">Game mode</span> {{.Round.GameMode}}</span>
+        <span><span class="smalldetail">Ended at</span> {{.Round.EndTime | pretty_time}}</span>
+        <span><span class="smalldetail">Duration</span> {{.Round.Duration}} minutes</span>
+        </a>
+    </div>
+</div>
+{{else}}
+<p class="error center">Sorry, can't find any rounds!</p>
+{{end}}
+{{template "panelfoot"}}
+
+{{template "panelhead" "Global Stats"}}
+<br />
+<br />
+<br />
+<br />
 {{template "panelfoot"}}
 {{template "footer"}}
