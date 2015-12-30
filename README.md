@@ -11,7 +11,6 @@ Installation
 
 Compile time dependencies:
 
-- Git
 - Go v1.5+ (Unknown if older versions works)
 - [cli](https://github.com/codegangsta/cli)
 - [gin](https://github.com/gin-gonic/gin)
@@ -35,6 +34,7 @@ Usage
 --------------------------------------------------------------------------------
 
 ```
+$ ApolloStats -h
 NAME:
    main - Run a web server, serving stats for Apollo.
 
