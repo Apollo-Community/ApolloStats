@@ -77,6 +77,7 @@ func (i *Instance) index(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", gin.H{
 		"pagetitle": "Index",
 		"Round":     i.DB.GetLatestRound(),
+		"Stats":     i.DB.GetStats(),
 	})
 }
 

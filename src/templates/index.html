@@ -25,9 +25,27 @@ TODO
 {{template "panelfoot"}}
 
 {{template "panelhead" "Global Stats"}}
-<br />
-<br />
-<br />
-<br />
+<div class="stats">
+    <div class="bg">
+        <div class="left">
+            <ul>
+                <li><span>Total account items:</span> {{.Stats.TotalAccountItems}}</li>
+                <li><span>Total bans:</span> {{.Stats.TotalBans}}</li>
+                <li><span>Average bans per day:</span> {{.Stats.AvgBans | printf "%.1f"}}</li>
+                <li><span>Total rounds:</span> {{.Stats.TotalRounds}}</li>
+                <li><span>Total structural damages:</span> ${{.Stats.TotalDamages}}</li>
+            </ul>
+        </div>
+        <div class="right">
+            <ul>
+                <li><span>Total dead monkeys:</span> {{.Stats.TotalMonkeys}}</li>
+                <li><span>Total player deaths:</span> {{.Stats.TotalDeaths}}</li>
+                <li><span>Average deaths per round:</span> {{.Stats.AvgDeaths | printf "%.1f"}}</li>
+                <li><span>Total game time:</span> {{.Stats.TotalRoundDuration}} minutes</li>
+                <li><span>Average round duration:</span> {{.Stats.AvgRoundDuration | printf "%.1f"}} minutes</li>
+            </ul>
+        </div>
+    </div>
+</div>
 {{template "panelfoot"}}
 {{template "footer"}}
