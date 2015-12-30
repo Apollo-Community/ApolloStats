@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/GeertJohan/go.rice"
+	"github.com/dustin/go-humanize"
 	"github.com/gin-gonic/gin"
 )
 
@@ -36,6 +37,9 @@ func (i *Instance) Init() {
 		},
 		"year": func() int {
 			return time.Now().Year()
+		},
+		"commas": func(i int64) string {
+			return humanize.Comma(i)
 		},
 	}
 

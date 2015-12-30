@@ -33,7 +33,7 @@ TODO
                 <li><span>Total bans:</span> {{.Stats.TotalBans}}</li>
                 <li><span>Average bans per day:</span> {{.Stats.AvgBans | printf "%.1f"}}</li>
                 <li><span>Total rounds:</span> {{.Stats.TotalRounds}}</li>
-                <li><span>Total structural damages:</span> ${{.Stats.TotalDamages}}</li>
+                <li><span>Total structural damages:</span> ${{.Stats.TotalDamages | commas}}</li>
             </ul>
         </div>
         <div class="right">

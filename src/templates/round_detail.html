@@ -71,7 +71,7 @@
     <div class="left">
         <ul>
             <li><span>Crew productivity:</span> {{.Round.Productivity}}%</li>
-            <li><span>Structual damages:</span> ${{.Round.DamageCost}}</li>
+            <li><span>Structual damages:</span> ${{.Round.DamageCost | commas}}</li>
             <li><span>Total deaths:</span> {{.Round.Deaths}}</li>
             <li><span>Crew reconstituted:</span> {{.Round.Clones}} clones</li>
             <li><span>Chemicals vended:</span> {{.Round.DispenseVolume}}L</li>
@@ -94,7 +94,7 @@
             <li><span>Doors "locked":</span> {{.Round.DoorsWelded}}</li>
             <li><span>Power produced:</span> {{.Round.Totalkwh}}kWh</li>
             <li><span>Artifacts:</span> {{.Round.Artifacts}}</li>
-            <li><span>Cargo profit:</span> ${{.Round.CargoProfit}}</li>
+            <li><span>Cargo profit:</span> ${{.Round.CargoProfit | commas}}</li>
             <li><span>Space trash created:</span> {{.Round.TrashVented}}</li>
             <li><span>People watched:</span> {{.Round.AIFollow}}</li>
             <li><span>People fired:</span> {{.Round.Banned}}</li>
