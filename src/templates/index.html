@@ -41,7 +41,7 @@ TODO
                 <li><span>Total dead monkeys:</span> {{.Stats.TotalMonkeys}}</li>
                 <li><span>Total dead players:</span> {{.Stats.TotalDeaths}}</li>
                 <li><span>Average deaths per round:</span> {{.Stats.AvgDeaths | printf "%.1f"}}</li>
-                <li><span>Total game time:</span> {{.Stats.TotalRoundDuration}} hours</li>
+                <li><span>Total game time:</span> {{.Stats.TotalRoundDuration | printf "%.1f"}} hours</li>
                 <li><span>Average round duration:</span> {{.Stats.AvgRoundDuration | printf "%.1f"}} minutes</li>
             </ul>
         </div>
