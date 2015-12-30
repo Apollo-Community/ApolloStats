@@ -14,7 +14,7 @@ type Ban struct {
 	BanType    string    `gorm:"column:bantype"`
 	Admin      string    `gorm:"column:a_ckey"`
 	Reason     string    `gorm:"column:reason"`
-	Duration   int       `gorm:"column:duration"`
+	Duration   int64     `gorm:"column:duration"`
 	Expiration time.Time `gorm:"column:expiration_time"`
 }
 
@@ -49,10 +49,10 @@ type Death struct {
 	Job       string    `gorm:"column:job"`
 	Room      string    `gorm:"column:pod"`
 	Position  string    `gorm:"column:coord"`
-	Brute     int       `gorm:"column:bruteloss"`
-	Brain     int       `gorm:"column:brainloss"`
-	Fire      int       `gorm:"column:fireloss"`
-	Oxygen    int       `gorm:"column:oxyloss"`
+	Brute     int64     `gorm:"column:bruteloss"`
+	Brain     int64     `gorm:"column:brainloss"`
+	Fire      int64     `gorm:"column:fireloss"`
+	Oxygen    int64     `gorm:"column:oxyloss"`
 }
 
 func (d *Death) TableName() string {
@@ -94,29 +94,29 @@ type RoundStats struct {
 	EndTime  time.Time `gorm:"column:end_time"`
 	Duration int64     `gorm:"column:duration"`
 
-	Productivity    int `gorm:"column:productivity"`
-	Deaths          int `gorm:"column:deaths"`
-	Clones          int `gorm:"column:clones"`
-	DispenseVolume  int `gorm:"column:dispense_volume"`
-	BombsExploded   int `gorm:"column:bombs_exploded"`
-	Vended          int `gorm:"column:vended"`
-	RunDistance     int `gorm:"column:run_distance"`
-	BloodMopped     int `gorm:"column:blood_mopped"`
-	DamageCost      int `gorm:"column:damage_cost"`
-	BreakTime       int `gorm:"column:break_time"`
-	MonkeyDeaths    int `gorm:"column:monkey_deaths"`
-	SpamBlocked     int `gorm:"column:spam_blocked"`
-	PeopleSlipped   int `gorm:"column:people_slipped"`
-	DoorsOpened     int `gorm:"column:doors_opened"`
-	GunsFired       int `gorm:"column:guns_fired"`
-	BeepskyBeatings int `gorm:"column:beepsky_beatings"`
-	DoorsWelded     int `gorm:"column:doors_welded"`
-	Totalkwh        int `gorm:"column:total_kwh"`
-	Artifacts       int `gorm:"column:artifacts"`
-	CargoProfit     int `gorm:"column:cargo_profit"`
-	TrashVented     int `gorm:"column:trash_vented"`
-	AIFollow        int `gorm:"column:ai_follow"`
-	Banned          int `gorm:"column:banned"`
+	Productivity    int64 `gorm:"column:productivity"`
+	Deaths          int64 `gorm:"column:deaths"`
+	Clones          int64 `gorm:"column:clones"`
+	DispenseVolume  int64 `gorm:"column:dispense_volume"`
+	BombsExploded   int64 `gorm:"column:bombs_exploded"`
+	Vended          int64 `gorm:"column:vended"`
+	RunDistance     int64 `gorm:"column:run_distance"`
+	BloodMopped     int64 `gorm:"column:blood_mopped"`
+	DamageCost      int64 `gorm:"column:damage_cost"`
+	BreakTime       int64 `gorm:"column:break_time"`
+	MonkeyDeaths    int64 `gorm:"column:monkey_deaths"`
+	SpamBlocked     int64 `gorm:"column:spam_blocked"`
+	PeopleSlipped   int64 `gorm:"column:people_slipped"`
+	DoorsOpened     int64 `gorm:"column:doors_opened"`
+	GunsFired       int64 `gorm:"column:guns_fired"`
+	BeepskyBeatings int64 `gorm:"column:beepsky_beatings"`
+	DoorsWelded     int64 `gorm:"column:doors_welded"`
+	Totalkwh        int64 `gorm:"column:total_kwh"`
+	Artifacts       int64 `gorm:"column:artifacts"`
+	CargoProfit     int64 `gorm:"column:cargo_profit"`
+	TrashVented     int64 `gorm:"column:trash_vented"`
+	AIFollow        int64 `gorm:"column:ai_follow"`
+	Banned          int64 `gorm:"column:banned"`
 }
 
 func (r *RoundStats) TableName() string {
