@@ -33,7 +33,7 @@ type Stats struct {
 	TotalRounds        int64
 	TotalDeaths        int64
 	AvgDeaths          float64
-	TotalRoundDuration int64
+	TotalRoundDuration float64
 	AvgRoundDuration   float64
 	TotalMonkeys       int64
 	TotalDamages       int64
@@ -47,7 +47,7 @@ func (db *DB) GetStats() *Stats {
 		total_rounds         int64
 		total_deaths         int64
 		avg_deaths           float64
-		total_round_duration int64
+		total_round_duration float64
 		avg_round_duration   float64
 		total_monkey_deaths  int64
 		total_damage_cost    int64
@@ -58,19 +58,19 @@ func (db *DB) GetStats() *Stats {
 	db.Model(RoundStats{}).Count(&total_rounds)
 	db.Model(Death{}).Count(&total_deaths)
 
-	avg_deaths = float64(total_deaths) / float64(total_rounds)
-
 	var b Ban
 	db.First(&b, 1)
 	ban_days := time.Now().Sub(b.Timestamp).Hours() / 24
 	avg_bans = float64(total_bans) / float64(ban_days)
 
 	var durations []int64
+	var total_minutes int64
 	db.Model(RoundStats{}).Pluck("duration", &durations)
 	for _, d := range durations {
-		total_round_duration += d
+		total_minutes += d
 	}
-	avg_round_duration = float64(total_round_duration) / float64(total_rounds)
+	avg_round_duration = float64(total_minutes) / float64(total_rounds)
+	total_round_duration = float64(total_minutes) / 60.0
 
 	var monkeys []int64
 	db.Model(RoundStats{}).Pluck("monkey_deaths", &monkeys)
@@ -83,6 +83,8 @@ func (db *DB) GetStats() *Stats {
 	for _, d := range damages {
 		total_damage_cost += d
 	}
+
+	avg_deaths = float64(total_deaths+total_monkey_deaths) / float64(total_rounds)
 
 	return &Stats{total_acc_items, total_bans, avg_bans, total_rounds, total_deaths, avg_deaths, total_round_duration, avg_round_duration, total_monkey_deaths, total_damage_cost}
 }
