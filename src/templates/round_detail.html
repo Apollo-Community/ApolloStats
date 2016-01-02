@@ -29,7 +29,7 @@
         <li>
             <div>
                 <span class="text">{{.Name}}</span>
-                <span class="text">the {{.Job}}</span>
+                <span class="text">the {{.Job | default_job}}</span>
                 <span class="smalldetail">was a</span>
                 {{if .Success}}
                 <span class="success">successful</span>
@@ -50,7 +50,7 @@
         <li>
             <div>
                 <span class="text">{{.Name}}</span>
-                <span class="text">the {{.Job}}</span>
+                <span class="text">the {{.Job | default_job}}</span>
                 <span class="smalldetail">died in</span>
                 <span class="text">{{.RoomName}}</span>
                 <span class="smalldetail">({{.Position}})</span>

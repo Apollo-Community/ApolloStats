@@ -41,6 +41,12 @@ func (i *Instance) Init() {
 		"commas": func(i int64) string {
 			return humanize.Comma(i)
 		},
+		"default_job": func(s string) string {
+			if len(s) < 1 {
+				return "Unknown"
+			}
+			return s
+		},
 	}
 
 	// Load templates
