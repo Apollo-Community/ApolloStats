@@ -1,4 +1,83 @@
 
+/* Default layout  ************************************************************/
+html, body {
+    color: #AAA;
+    background-color: #1C232E;
+}
+
+#page-header:after {
+    content: "Sorry, can't load the stylesheet from Apollo-Community.org!";
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul.leftside {
+    float: left;
+}
+
+ul.rightside {
+    float: right;
+}
+
+li.tab {
+    float: left;
+}
+
+#page-body .navbar {
+    margin-bottom: 10px;
+    height: 33px;
+    background-color: #252B33;
+}
+
+.navbar .nav-tabs .nav-link {
+    height: 33px;
+    line-height: 33px;
+    padding: 0px 12px;
+    font-size: 12px;
+    display: inline-block;
+    color: inherit;
+}
+
+.navbar .nav-tabs .tab:hover {
+    color: #FFF;
+    background-color: #C35824;
+}
+
+.forabg {
+    background-color: #252B33;
+    clear: both;
+    padding: 4px;
+    margin-bottom: 4px;
+}
+
+li.header {
+    background: #2C415F;
+    padding: 5px;
+    font-size: 15px;
+    color: #F1F6FC;
+}
+
+li.tab {
+    color: #6593D6;
+}
+
+a, a:hover, a:visited {
+    color: #6593D6;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #C35824;
+}
+
+.error {
+    color: red;
+}
+
 /* Tables *********************************************************************/
 tr.borders {
     border-top: 1px solid #2E353F;
