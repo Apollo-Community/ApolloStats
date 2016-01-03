@@ -20,10 +20,7 @@ type DB struct {
 func OpenDB(DSN string) (*DB, error) {
 	tmp := fmt.Sprintf("%s?parseTime=True&timeout=30s", DSN)
 	db, e := gorm.Open("mysql", tmp)
-	if e != nil {
-		return nil, e
-	}
-	return &DB{&db}, nil
+	return &DB{&db}, e
 }
 
 type Stats struct {

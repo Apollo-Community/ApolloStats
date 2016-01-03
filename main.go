@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -48,8 +47,8 @@ func main() {
 
 func run_server(c *cli.Context) {
 	db, e := apollostats.OpenDB(g_database)
-	if e != nil {
-		log.Fatal(fmt.Sprintf("Failed to connect to the database:\n%s\n", e.Error()))
+	if e != nil && g_debug {
+		log.Printf("Failed to connect to the database:\n%s\n", e.Error())
 	}
 
 	i := apollostats.Instance{
