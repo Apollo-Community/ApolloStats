@@ -20,7 +20,11 @@ type DB struct {
 func OpenDB(DSN string, debug bool) (*DB, error) {
 	tmp := fmt.Sprintf("%s?parseTime=True&timeout=30s", DSN)
 	db, e := gorm.Open("mysql", tmp)
-	db.LogMode(debug)
+	// Avoid setting LogMode(true), since that will trace log all queries.
+	// Only show errors by default, unless silenced completely by debug = false
+	if !debug {
+		db.LogMode(debug)
+	}
 	return &DB{&db}, e
 }
 
