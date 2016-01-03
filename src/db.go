@@ -17,9 +17,10 @@ type DB struct {
 	*gorm.DB
 }
 
-func OpenDB(DSN string) (*DB, error) {
+func OpenDB(DSN string, debug bool) (*DB, error) {
 	tmp := fmt.Sprintf("%s?parseTime=True&timeout=30s", DSN)
 	db, e := gorm.Open("mysql", tmp)
+	db.LogMode(debug)
 	return &DB{&db}, e
 }
 

@@ -46,7 +46,7 @@ func main() {
 }
 
 func run_server(c *cli.Context) {
-	db, e := apollostats.OpenDB(g_database)
+	db, e := apollostats.OpenDB(g_database, g_debug)
 	if e != nil && g_debug {
 		log.Printf("Failed to connect to the database:\n%s\n", e.Error())
 	}
