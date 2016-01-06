@@ -5,6 +5,13 @@ html, body {
     background-color: #1C232E;
 }
 
+.about {
+    text-align: center;
+    max-width: 500px;
+    margin: 10px auto;
+    font-weight: bold;
+}
+
 ul {
     list-style-type: none;
     padding: 0px;
@@ -230,5 +237,9 @@ td.min-width {
 
 .bold {
     font-weight: bold;
+}
+
+.underline {
+    text-decoration: underline;
 }
 
