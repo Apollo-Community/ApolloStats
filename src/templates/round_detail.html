@@ -36,7 +36,7 @@
                 {{else}}
                 <span class="failed">miserable</span>
                 {{end}}
-                <span class="text">{{.Role}}</span>
+                <span class="text">{{.Role | default_job}}</span>
             </div>
         </li>
         {{end}}
@@ -88,7 +88,7 @@
     <div class="right">
         <ul>
             <li><span>Wet signs ignored:</span> {{.Round.PeopleSlipped}}</li>
-            <li><span>Waiting for doors:</span> {{.Round.DoorsOpened}} seconds</li>
+            <li><span>Waiting for doors:</span> {{.Round.DoorsOpened | commas}} seconds</li>
             <li><span>Total "warning" shots:</span> {{.Round.GunsFired}}</li>
             <li><span>Justice served:</span> {{.Round.BeepskyBeatings}} beatings</li>
             <li><span>Doors "locked":</span> {{.Round.DoorsWelded}}</li>

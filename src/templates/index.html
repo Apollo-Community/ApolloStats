@@ -30,7 +30,7 @@ TODO
         <div class="left">
             <ul>
                 <li><span>Total account items:</span> {{.Stats.TotalAccountItems}}</li>
-                <li><span>Total bans:</span> {{.Stats.TotalBans}}</li>
+                <li><span>Total bans:</span> {{.Stats.TotalBans | commas}}</li>
                 <li><span>Average bans per day:</span> {{.Stats.AvgBans | printf "%.1f"}}</li>
                 <li><span>Total rounds:</span> {{.Stats.TotalRounds}}</li>
                 <li><span>Total structural damages:</span> ${{.Stats.TotalDamages | commas}}</li>
@@ -38,8 +38,8 @@ TODO
         </div>
         <div class="right">
             <ul>
-                <li><span>Total dead monkeys:</span> {{.Stats.TotalMonkeys}}</li>
-                <li><span>Total dead players:</span> {{.Stats.TotalDeaths}}</li>
+                <li><span>Total dead monkeys:</span> {{.Stats.TotalMonkeys | commas}}</li>
+                <li><span>Total dead players:</span> {{.Stats.TotalDeaths | commas}}</li>
                 <li><span>Average deaths per round:</span> {{.Stats.AvgDeaths | printf "%.1f"}}</li>
                 <li><span>Total game time:</span> {{.Stats.TotalRoundDuration | printf "%.1f"}} hours</li>
                 <li><span>Average round duration:</span> {{.Stats.AvgRoundDuration | printf "%.1f"}} minutes</li>

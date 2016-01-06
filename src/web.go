@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/GeertJohan/go.rice"
@@ -42,7 +43,7 @@ func (i *Instance) Init() {
 			return humanize.Comma(i)
 		},
 		"default_job": func(s string) string {
-			if len(s) < 1 {
+			if len(strings.TrimSpace(s)) < 1 {
 				return "Unknown"
 			}
 			return s
