@@ -86,6 +86,12 @@ $ export APOLLOSTATS_DBAUTH="user:password@/database"
 $ ./ApolloStats --debug run
 ```
 
+License
+================================================================================
+
+MIT License, see the LICENSE file for details.
+
+
 TODO
 ================================================================================
 
