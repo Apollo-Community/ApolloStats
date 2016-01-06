@@ -27,6 +27,7 @@ Download the source code (via `go get`, `git` or from a [zipped archive](https:/
 Open the directory with the source code and run `go build` to compile the code.
 You will now have a `ApolloStats` binary in the dir, which you can run to start
 the web server.
+
 Please note that this binary still depends on the source templates and static
 files, found inside the `src/` directory.
 
@@ -37,6 +38,7 @@ To truly make a stand alone binary without having to depend on the `src/` direct
 you will have to append the templates and static files to the binary itself.
 This step depends on the `rice` command, so you will have to install it too using
 `go get github.com/GeertJohan/go.rice/rice`.
+
 Then you can compile the binary like before. After that, change into the `src/`
 directory and run `rice append --exec ../ApolloStats` to append the templates
 and static filesto the final binary.
@@ -78,8 +80,10 @@ Environment variables:
 --------------------------------------------------------------------------------
 
 You can set some environment variables instead of using the command line flags.
-- APOLLOSTATS_ADDR:   Same as the --addr flag.
-- APOLLOSTATS_DBAUTH: Same as the --database flag.
+```
+    APOLLOSTATS_ADDR:   Same as the --addr flag.
+    APOLLOSTATS_DBAUTH: Same as the --database flag.
+```
 
 TODO
 ================================================================================
