@@ -81,9 +81,9 @@ Environment variables:
 
 You can set some environment variables instead of using the command line flags.
 ```
-    export APOLLOSTATS_ADDR="127.0.0.1:8000"
-    export APOLLOSTATS_DBAUTH="user:password@/database"
-    ./ApolloStats --debug run
+$ export APOLLOSTATS_ADDR="127.0.0.1:8000"
+$ export APOLLOSTATS_DBAUTH="user:password@/database"
+$ ./ApolloStats --debug run
 ```
 
 TODO
