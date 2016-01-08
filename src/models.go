@@ -12,6 +12,7 @@ type Ban struct {
 	CID        string    `gorm:"column:computerid"`
 	IP         string    `gorm:"column:ip"`
 	BanType    string    `gorm:"column:bantype"`
+	BannedJob  string    `gorm:"column:job"`
 	Admin      string    `gorm:"column:a_ckey"`
 	Reason     string    `gorm:"column:reason"`
 	Duration   int64     `gorm:"column:duration"`
@@ -22,12 +23,31 @@ func (b *Ban) TableName() string {
 	return "ban"
 }
 
+// Return a nicely formatted ban type.
+func (b *Ban) Ban() string {
+	if b.BanType == "PERMABAN" || b.BanType == "TEMPBAN" {
+		return "Server"
+	} else if b.BanType == "JOB_PERMABAN" || b.BanType == "JOB_TEMPBAN" {
+		return strings.Title(b.BannedJob)
+	}
+	return strings.Title(b.BanType)
+}
+
+// Return a nicely formatted expire time, as a string.
 func (b *Ban) Expires() string {
 	if b.Duration < 0 {
 		return "Permanent"
 	} else {
 		return b.Expiration.Format("2006-01-02 15:04 MST")
 	}
+}
+
+// Clean up the ban reason and return a nicely formatted string instead.
+func (b *Ban) Message() string {
+	m := strings.TrimPrefix(b.Reason, "(MANUAL BAN) ")
+	// Make sure the message ends with a dot, but avoid making double dots.
+	m = strings.TrimSuffix(m, ".") + "."
+	return m
 }
 
 type AccountItem struct {
@@ -59,6 +79,7 @@ func (d *Death) TableName() string {
 	return "deaths"
 }
 
+// Return a cleaned up room name.
 func (d *Death) RoomName() string {
 	// TODO: fix this thing in the byond source.
 	// Cleanup the room name
