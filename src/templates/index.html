@@ -17,7 +17,7 @@
 {{template "panelfoot"}}
 
 {{template "panelhead" "Latest Round"}}
-{{if .Round}}
+{{if .Round.ID | lt 0}}
 <div class="round-header">
     <div class="center">
         <a href="/round/{{.Round.ID}}">
