@@ -7,10 +7,11 @@
     <li>
         <div>
             <span class="text">{{.CKey}}</span>
-            <span class="ban">{{.BanType}}</span>
+            <span class="ban">{{.Ban}} ban</span>
             <span class="time">{{.Expires}}</span>
-            <span class="text">{{.Admin}}</span>
-            <span class="long">{{.Reason}}</span>
+            <span class="long">
+                <span class="bold">{{.Admin}}</span> {{.Timestamp | pretty_time}}:<br />
+                {{.Reason}}</span>
         </div>
     </li>
     {{end}}

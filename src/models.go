@@ -12,6 +12,7 @@ type Ban struct {
 	CID        string    `gorm:"column:computerid"`
 	IP         string    `gorm:"column:ip"`
 	BanType    string    `gorm:"column:bantype"`
+	BannedJob  string    `gorm:"column:job"`
 	Admin      string    `gorm:"column:a_ckey"`
 	Reason     string    `gorm:"column:reason"`
 	Duration   int64     `gorm:"column:duration"`
@@ -20,6 +21,15 @@ type Ban struct {
 
 func (b *Ban) TableName() string {
 	return "ban"
+}
+
+func (b *Ban) Ban() string {
+	if b.BanType == "PERMABAN" || b.BanType == "TEMPBAN" {
+		return "Server"
+	} else if b.BanType == "JOB_PERMABAN" || b.BanType == "JOB_TEMPBAN" {
+		return strings.Title(b.BannedJob)
+	}
+	return strings.Title(b.BanType)
 }
 
 func (b *Ban) Expires() string {
