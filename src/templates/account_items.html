@@ -6,9 +6,9 @@
     {{range .AccountItems}}
     <li>
         <div>
-            <span class="time">{{.Timestamp | pretty_time}}</span>
             <span class="text">{{.CKey}}</span>
             <span class="text">{{.Item}}</span>
+            <span class="time">{{.Timestamp | pretty_time}}</span>
         </div>
     </li>
     {{end}}
