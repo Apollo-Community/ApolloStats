@@ -152,7 +152,7 @@ td.min-width {
 }
 
 .block-list .time {
-    width: 135px;
+    width: 160px;
 }
 
 .block-list .text {
@@ -160,7 +160,7 @@ td.min-width {
 }
 
 .block-list .long {
-    width: 400px;
+    width: 600px;
     text-align: left;
     vertical-align: middle;
 }
