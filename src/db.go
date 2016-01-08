@@ -2,13 +2,18 @@ package apollostats
 
 import (
 	"fmt"
+	"log"
+	"net"
 	"time"
 
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 )
 
 const MAX_ROWS = 200
+
+// DB connection timeout, in seconds
+const TIMEOUT = 30
 
 // NOTE: DON'T USE ANY WRITE OPERATIONS ON THE DATABASE!
 // We're interfacing with an external, live game database!
@@ -17,7 +22,37 @@ type DB struct {
 	*gorm.DB
 }
 
+// Matches the Writer interface, it will do nothing when Write() is called.
+type NullWriter struct {
+}
+
+// Do nothing and return n=0 and err=nil.
+func (w *NullWriter) Write(p []byte) (n int, err error) {
+	return 0, nil
+}
+
+// Connect to the DB using a dialer with timeout and deadline set.
+func timeout_dial(addr string) (net.Conn, error) {
+	t := time.Duration(TIMEOUT) * time.Second
+	c, e := net.DialTimeout("tcp", addr, t)
+	if e != nil {
+		return nil, e
+	}
+
+	d := time.Now().Add(t)
+	c.SetDeadline(d) // Deadline for read/write
+	return c, nil
+}
+
 func OpenDB(DSN string, debug bool) (*DB, error) {
+	// Register a custom dialer so we can set a connection timeout and deadline
+	mysql.RegisterDial("tcp", timeout_dial)
+
+	// HACK: The mysql driver keeps spamming i/o timeouts in the logs when
+	// the db connection times out, so let's disable all mysql logging...
+	l := log.New(&NullWriter{}, "", 0)
+	mysql.SetLogger(l)
+
 	tmp := fmt.Sprintf("%s?parseTime=True&timeout=30s", DSN)
 	db, e := gorm.Open("mysql", tmp)
 	// Avoid setting LogMode(true), since that will trace log all queries.
