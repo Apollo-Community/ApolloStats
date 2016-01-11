@@ -73,6 +73,8 @@ func (i *Instance) Init() {
 
 	// Setup all views
 	i.router.GET("/", i.index)
+	i.router.GET("/favicon.ico", i.favicon)
+	i.router.GET("/robots.txt", i.robots)
 	i.router.GET("/bans", i.bans)
 	i.router.GET("/account_items", i.account_items)
 	i.router.GET("/rounds", i.rounds)
@@ -90,6 +92,14 @@ func (i *Instance) index(c *gin.Context) {
 		"Round":     i.DB.GetLatestRound(),
 		"Stats":     i.DB.GetStats(),
 	})
+}
+
+func (i *Instance) favicon(c *gin.Context) {
+	c.Redirect(http.StatusMovedPermanently, "/static/favicon.ico")
+}
+
+func (i *Instance) robots(c *gin.Context) {
+	c.Redirect(http.StatusMovedPermanently, "/static/robots.txt")
 }
 
 func (i *Instance) bans(c *gin.Context) {

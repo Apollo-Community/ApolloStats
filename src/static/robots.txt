@@ -1,0 +1,7 @@
+
+User-agent: *
+Disallow: /static/
+Disallow: /account_items
+Disallow: /bans
+Disallow: /rounds
+Disallow: /round/
