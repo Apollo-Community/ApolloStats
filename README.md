@@ -98,22 +98,18 @@ TODO
 Info:
 - Clarify that there are never info from a currently running round.
 - Clarify total deaths.
-- Clarify the diff. ban types.
 
 Templates:
+- Need to remake the custom CSS and make the pages prettier.
 - Change the colors used in css.
-- Fix timestamp width.
 
 Static files:
-- Serve favicon on /favicon.ico too.
-- Need a robots.txt too.
 - Show web server stats too?
+- Replace go.rice with a more stable lib.
 
 Database:
-- Timeout and show error when we can't connect to the ext. db.
 - Fix duplicate entries of drones.
 - Fix duplicate entries of AI laws.
-- Fix duplicate entries of bans (usually multiple job bans).
 
 Account items:
 - Would be nice to show why a player got an item too.
@@ -130,3 +126,6 @@ Game map:
 - Store the map as picture tiles?
 - Investigate how goon made their map.
 - Need to rebuild the map after any new map changes from a commit.
+
+Tests:
+- Must do unit tests.
