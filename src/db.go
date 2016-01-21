@@ -183,6 +183,8 @@ func (db *DB) GetDeaths(id int64) []*Death {
 }
 
 func (db *DB) AllGameModes() []*GameMode {
+	// TODO: Yep it's a fucking beast. And yep, it's slow as fuck.
+	// I feel dirty for having made this...
 	var game_modes []string
 	var modes GameModeSlice
 	var total_rounds int64
