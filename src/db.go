@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"sort"
+	"strings"
 	"time"
 
 	"github.com/go-sql-driver/mysql"
@@ -178,4 +180,32 @@ func (db *DB) GetDeaths(id int64) []*Death {
 	var tmp []*Death
 	db.Order("round_id desc, name asc").Where("round_id = ?", id).Find(&tmp)
 	return tmp
+}
+
+func (db *DB) AllGameModes() []*GameMode {
+	var game_modes []string
+	var modes GameModeSlice
+	var total_rounds int64
+	db.Table("round_stats").Pluck("DISTINCT game_mode", &game_modes)
+	for _, gm := range game_modes {
+		var ret GameMode
+		db.Table("round_stats").Where("game_mode=?", gm).Select(`
+			COUNT(id) as total_rounds, 
+			AVG(duration) as avg_duration,
+			AVG(productivity) as avg_productivity,
+			AVG(deaths) as avg_deaths
+		`).Find(&ret)
+
+		ret.Title = strings.Title(gm)
+		total_rounds += ret.TotalRounds
+		modes = append(modes, &ret)
+	}
+
+	var t float64
+	for _, m := range modes {
+		m.AvgRounds = (float64(m.TotalRounds) / float64(total_rounds)) * 100
+		t += m.AvgRounds
+	}
+	sort.Sort(modes)
+	return modes
 }

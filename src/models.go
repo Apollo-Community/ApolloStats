@@ -143,3 +143,28 @@ type RoundStats struct {
 func (r *RoundStats) TableName() string {
 	return "round_stats"
 }
+
+type GameMode struct {
+	Title           string
+	TotalRounds     int64
+	AvgRounds       float64
+	AvgDuration     float64
+	AvgProductivity float64
+	AvgDeaths       float64
+	//AvgAntags       float64
+	//AvgAntagWins    float64
+}
+
+type GameModeSlice []*GameMode
+
+func (m GameModeSlice) Len() int {
+	return len(m)
+}
+
+func (m GameModeSlice) Swap(i, j int) {
+	m[i], m[j] = m[j], m[i]
+}
+
+func (m GameModeSlice) Less(i, j int) bool {
+	return m[j].AvgRounds < m[i].AvgRounds
+}
