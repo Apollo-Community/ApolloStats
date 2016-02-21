@@ -104,7 +104,6 @@ Templates:
 - Change the colors used in css.
 
 Static files:
-- Show web server stats too?
 - Replace go.rice with a more stable lib.
 
 Database:
@@ -113,9 +112,6 @@ Database:
 
 Account items:
 - Would be nice to show why a player got an item too.
-
-Bans:
-- Full text search for a ban.
 
 Rounds:
 - Show player death graph over round's duration.
