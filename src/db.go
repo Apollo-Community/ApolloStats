@@ -127,9 +127,11 @@ func (db *DB) GetStats() *Stats {
 	return &Stats{total_acc_items, total_bans, avg_bans, total_rounds, total_deaths, avg_deaths, total_round_duration, avg_round_duration, total_monkey_deaths, total_damage_cost}
 }
 
-func (db *DB) AllBans() []*Ban {
+func (db *DB) SearchBans(ckey string) []*Ban {
 	var tmp []*Ban
-	db.Order("id desc").Limit(MAX_ROWS).Find(&tmp)
+	// Don't want any weird behaviours if the user is smart enough to try to use these
+	tckey := "%" + strings.Trim(ckey, "_%") + "%"
+	db.Order("id desc, ckey asc").Where("ckey LIKE ?", tckey).Limit(MAX_ROWS).Find(&tmp)
 	return tmp
 }
 
@@ -189,7 +191,6 @@ func (db *DB) GetCharacter(id int64) *Character {
 
 func (db *DB) SearchCharacter(ckey, name string) []*Character {
 	var tmp []*Character
-	// Don't any weird behaviours if the user is smart enough to try to use these
 	tckey := "%" + strings.Trim(ckey, "_%") + "%"
 	tname := "%" + strings.Trim(name, "_%") + "%"
 	db.Order("ckey, name desc").Where("ckey LIKE ? AND name LIKE ?", tckey, tname).Limit(MAX_ROWS).Find(&tmp)

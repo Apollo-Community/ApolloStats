@@ -105,9 +105,12 @@ func (i *Instance) robots(c *gin.Context) {
 }
 
 func (i *Instance) bans(c *gin.Context) {
+	ckey := c.Query("ckey")
+	bans := i.DB.SearchBans(ckey)
+
 	c.HTML(http.StatusOK, "bans.html", gin.H{
 		"pagetitle": "Bans",
-		"Bans":      i.DB.AllBans(),
+		"Bans":      bans,
 	})
 }
 

@@ -1,6 +1,11 @@
 {{template "header" .}}
 {{template "panelhead" "Latest bans"}}
 
+<form class="search-form" action="" method="GET">
+    <input type="search" name="ckey" maxlength="100" placeholder="Player ckey">
+    <input type="submit" value="Search">
+</form>
+
 {{if .Bans}}
 <ul class="block-list">
     {{range .Bans}}
