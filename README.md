@@ -114,6 +114,9 @@ Database:
 Account items:
 - Would be nice to show why a player got an item too.
 
+Bans:
+- Full text search for a ban.
+
 Rounds:
 - Show player death graph over round's duration.
 
