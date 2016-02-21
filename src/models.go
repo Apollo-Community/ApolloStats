@@ -1,6 +1,9 @@
 package apollostats
 
 import (
+	"html"
+	"net/url"
+	"sort"
 	"strings"
 	"time"
 )
@@ -158,15 +161,15 @@ type Character struct {
 	NanotrasenRelation string `gorm:"column:nanotrasen_relation"`
 	Department         int64  `gorm:"column:department"`
 	Roles              string `gorm:"column:roles"`
-	JobAntag           int64  `gorm:"column:job_antag"`
 	FlavorTextsHuman   string `gorm:"column:flavor_texts_human"`
 	FlavorTextsRobot   string `gorm:"column:flavor_texts_robot"`
+	EmpNotes           string `gorm:"column:gen_notes"`
 	MedNotes           string `gorm:"column:med_notes"`
 	SecNotes           string `gorm:"column:sec_notes"`
-	GenNotes           string `gorm:"column:gen_notes"`
+	EmpRecords         string `gorm:"column:gen_record"`
 	MedRecords         string `gorm:"column:med_record"`
 	SecRecords         string `gorm:"column:sec_record"`
-	GenRecords         string `gorm:"column:gen_record"`
+	JobAntag           int64  `gorm:"column:job_antag"`
 	ExploitRecords     string `gorm:"column:exploit_record"`
 }
 
@@ -193,6 +196,15 @@ func (c *Character) NiceGender() string {
 	return "Unknown"
 }
 
+func (c *Character) NiceBirthDate() string {
+	t, e := time.Parse("2006&1&2", c.BirthDate)
+	if e != nil {
+		return "Can't parse date"
+	}
+
+	return t.Format("2006-01-02")
+}
+
 func (c *Character) NiceDep() string {
 	switch c.Department {
 	case 0:
@@ -211,4 +223,33 @@ func (c *Character) NiceDep() string {
 		return "Synthetic"
 	}
 	return "Unknown"
+}
+
+func (c *Character) Flavor() string {
+	if c.Species == "Machine" {
+		return c.FlavorTextsRobot
+	}
+	return c.FlavorTextsHuman
+}
+
+func (c *Character) UnlockedJobs() []string {
+	var jobs []string
+	tmp, e := url.QueryUnescape(c.Roles)
+	if e != nil {
+		return []string{"Error parsing jobs"}
+	}
+	for _, s := range strings.Split(tmp, "&") {
+		jobs = append(jobs, strings.Split(s, "=")[0])
+	}
+	sort.Strings(jobs)
+	return jobs
+}
+
+func (c *Character) Records() map[string]string {
+	records := map[string]string{
+		"Employee": html.UnescapeString(c.EmpRecords),
+		"Medical":  html.UnescapeString(c.MedRecords),
+		"Security": html.UnescapeString(c.SecRecords),
+	}
+	return records
 }

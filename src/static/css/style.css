@@ -97,7 +97,7 @@ td.min-width {
 }
 
 /* Round Details **************************************************************/
-.round-header {
+.item-header {
     margin-top: 10px;
     padding: 25px 50px;
     font-size: 1.4em;
@@ -105,18 +105,23 @@ td.min-width {
     overflow: hidden;
 }
 
-.round-header span {
+.item-header span {
     display: inline-block;
     width: 250px;
 }
 
-.round-header .smalldetail {
+.item-header .smalldetail {
     font-size: 0.6em;
     display: inline;
 }
 
-.round-header a, .round-header a:hover {
+.item-header a, .item-header a:hover {
     text-decoration: none;
+}
+
+.item-header p {
+    margin-top: 1.5em;
+    margin-bottom: 0;
 }
 
 .block-list {
@@ -199,6 +204,19 @@ td.min-width {
 .block-list .oxygen {
     width: 30px;
     color: blue;
+}
+
+.block-list .job {
+    display: inline-block;
+    width: 200px;
+}
+
+.block-list .record-head {
+    float: left;
+}
+
+.block-list .record {
+    clear: both;
 }
 
 .stats {

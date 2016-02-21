@@ -2,7 +2,36 @@
 {{template "panelhead" "Character records"}}
 
 {{if .Char.ID | lt 0}}
-{{ .Char}}
+<div class="item-header center">
+    <span><span class="smalldetail">Name</span> {{.Char.Name}}</span>
+    <span><span class="smalldetail">Gender</span> {{.Char.NiceGender}}</span>
+    <span><span class="smalldetail">Species</span> {{.Char.Species}}</span>
+    <span><span class="smalldetail">Birth Date</span> {{.Char.NiceBirthDate}}</span>
+    <br />
+
+    <span><span class="smalldetail">Home System</span> {{.Char.HomeSystem}}</span>
+    <span><span class="smalldetail">Citizenship</span> {{.Char.Citizenship}}</span>
+    <span><span class="smalldetail">Faction</span> {{.Char.Faction}}</span>
+    <span><span class="smalldetail">Department</span> {{.Char.NiceDep}}</span>
+
+    {{if .Char.Flavor}}
+    <p>{{.Char.Flavor}}</p>
+    {{end}}
+</div>
+
+<h1>Unlocked jobs</h1>
+<ul class="block-list center">
+    {{range .Char.UnlockedJobs}}
+    <li class="job">{{.}}</li>
+    {{end}}
+</ul>
+
+<h1>Records</h1>
+<ul class="block-list">
+    {{range $key, $value := .Char.Records}}
+    <li><span class="record-head">{{$key}} Records</span><p class="record">{{$value}}</p></li>
+    {{end}}
+</ul>
 {{else}}
 <p class="error center">Sorry, can't find this character!</p>
 {{end}}
