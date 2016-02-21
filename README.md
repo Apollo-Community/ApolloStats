@@ -23,7 +23,7 @@ Compile time dependencies:
 Compilation:
 --------------------------------------------------------------------------------
 
-Download the source code (via `go get`, `git` or from a [zipped archive](https://github.com/Apollo-Community/ApolloStats/archive/v0.2.zip)).
+Download the source code (via `go get`, `git` or from a [zipped archive](https://github.com/Apollo-Community/ApolloStats/archive/v0.3.zip)).
 Open the directory with the source code and run `go build` to compile the code.
 You will now have a `ApolloStats` binary in the dir, which you can run to start
 the web server.
@@ -62,7 +62,7 @@ USAGE:
    main [global options] command [command options] [arguments...]
    
 VERSION:
-   0.2
+   0.3
    
 COMMANDS:
    run          Run the web server
