@@ -192,6 +192,6 @@ func (db *DB) SearchCharacter(ckey, name string) []*Character {
 	// Don't any weird behaviours if the user is smart enough to try to use these
 	tckey := "%" + strings.Trim(ckey, "_%") + "%"
 	tname := "%" + strings.Trim(name, "_%") + "%"
-	db.Debug().Order("ckey, name desc").Where("ckey LIKE ? AND name LIKE ?", tckey, tname).Limit(MAX_ROWS).Find(&tmp)
+	db.Order("ckey, name desc").Where("ckey LIKE ? AND name LIKE ?", tckey, tname).Limit(MAX_ROWS).Find(&tmp)
 	return tmp
 }

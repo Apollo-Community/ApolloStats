@@ -159,8 +159,6 @@ type Character struct {
 	Department         int64  `gorm:"column:department"`
 	Roles              string `gorm:"column:roles"`
 	JobAntag           int64  `gorm:"column:job_antag"`
-	AlternateOption    int64  `gorm:"column:Alternate_option"`
-	PlayerAltTitles    string `gorm:"column:player_alt_titles"`
 	FlavorTextsHuman   string `gorm:"column:flavor_texts_human"`
 	FlavorTextsRobot   string `gorm:"column:flavor_texts_robot"`
 	MedNotes           string `gorm:"column:med_notes"`
@@ -181,4 +179,36 @@ func (c *Character) NiceName() string {
 		return "<NO NAME>"
 	}
 	return strings.Title(c.Name)
+}
+
+func (c *Character) NiceGender() string {
+	switch c.Species {
+	case "Machine", "Diona", "Wryn":
+		return "None"
+	case "Tajara", "Unathi", "Skrell", "Nucleation", "Human":
+		if len(strings.TrimSpace(c.Gender)) > 1 {
+			return strings.Title(c.Gender)
+		}
+	}
+	return "Unknown"
+}
+
+func (c *Character) NiceDep() string {
+	switch c.Department {
+	case 0:
+		return "Civilian"
+	case 1:
+		return "Engineering"
+	case 2:
+		return "Supply"
+	case 3:
+		return "Medical"
+	case 4:
+		return "Science"
+	case 5:
+		return "Security"
+	case 6:
+		return "Synthetic"
+	}
+	return "Unknown"
 }
