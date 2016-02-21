@@ -34,7 +34,7 @@ func (i *Instance) Init() {
 	// Custom functions for the templates
 	funcmap := template.FuncMap{
 		"pretty_time": func(t time.Time) string {
-			return t.Format("2006-01-02 15:04 MST")
+			return t.UTC().Format("2006-01-02 15:04 MST")
 		},
 		"year": func() int {
 			return time.Now().Year()
