@@ -143,3 +143,35 @@ type RoundStats struct {
 func (r *RoundStats) TableName() string {
 	return "round_stats"
 }
+
+type Character struct {
+	ID                 int64  `gorm:"column:id"`
+	CKey               string `gorm:"column:ckey"`
+	Name               string `gorm:"column:name"`
+	Gender             string `gorm:"column:gender"`
+	BirthDate          string `gorm:"column:birth_date"`
+	Species            string `gorm:"column:species"`
+	HomeSystem         string `gorm:"column:home_system"`
+	Citizenship        string `gorm:"column:citizenship"`
+	Faction            string `gorm:"column:faction"`
+	Religion           string `gorm:"column:religion"`
+	NanotrasenRelation string `gorm:"column:nanotrasen_relation"`
+	Department         int64  `gorm:"column:department"`
+	Roles              string `gorm:"column:roles"`
+	JobAntag           int64  `gorm:"column:job_antag"`
+	AlternateOption    int64  `gorm:"column:Alternate_option"`
+	PlayerAltTitles    string `gorm:"column:player_alt_titles"`
+	FlavorTextsHuman   string `gorm:"column:flavor_texts_human"`
+	FlavorTextsRobot   string `gorm:"column:flavor_texts_robot"`
+	MedNotes           string `gorm:"column:med_notes"`
+	SecNotes           string `gorm:"column:sec_notes"`
+	GenNotes           string `gorm:"column:gen_notes"`
+	MedRecords         string `gorm:"column:med_record"`
+	SecRecords         string `gorm:"column:sec_record"`
+	GenRecords         string `gorm:"column:gen_record"`
+	ExploitRecords     string `gorm:"column:exploit_record"`
+}
+
+func (c *Character) TableName() string {
+	return "characters"
+}

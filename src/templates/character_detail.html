@@ -1,0 +1,11 @@
+{{template "header" .}}
+{{template "panelhead" "Character records"}}
+
+{{if .Char.ID | lt 0}}
+{{ .Char}}
+{{else}}
+<p class="error center">Sorry, can't find this character!</p>
+{{end}}
+
+{{template "panelfoot"}}
+{{template "footer"}}

@@ -179,3 +179,21 @@ func (db *DB) GetDeaths(id int64) []*Death {
 	db.Order("round_id desc, name asc").Where("round_id = ?", id).Find(&tmp)
 	return tmp
 }
+
+func (db *DB) GetCharacter(id int64) *Character {
+	var tmp Character
+	db.First(&tmp, id)
+	return &tmp
+}
+
+func (db *DB) SearchCharacterName(name string) []*Character {
+	var tmp []*Character
+	db.Order("name desc").Where("name LIKE '%?%'", name).Find(&tmp)
+	return tmp
+}
+
+func (db *DB) SearchCharacterCKey(ckey string) []*Character {
+	var tmp []*Character
+	db.Order("ckey desc").Where("ckey LIKE '%?%'", ckey).Find(&tmp)
+	return tmp
+}

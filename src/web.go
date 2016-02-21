@@ -79,6 +79,7 @@ func (i *Instance) Init() {
 	i.router.GET("/account_items", i.account_items)
 	i.router.GET("/rounds", i.rounds)
 	i.router.GET("/round/:round_id", i.round_detail)
+	i.router.GET("/character/:char_id", i.character_detail)
 }
 
 func (i *Instance) Serve(addr string) error {
@@ -136,5 +137,19 @@ func (i *Instance) round_detail(c *gin.Context) {
 		"Antags":    i.DB.GetAntags(id),
 		"AILaws":    i.DB.GetAILaws(id),
 		"Deaths":    i.DB.GetDeaths(id),
+	})
+}
+
+func (i *Instance) character_detail(c *gin.Context) {
+	id, e := strconv.ParseInt(c.Param("char_id"), 10, 0)
+	if e != nil {
+		id = -1
+	}
+	char := i.DB.GetCharacter(id)
+	fmt.Printf("CHAR: %+v\n", char)
+
+	c.HTML(http.StatusOK, "character_detail.html", gin.H{
+		"pagetitle": fmt.Sprintf("Character #%v", char.Name),
+		"Char":      char,
 	})
 }
