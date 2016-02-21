@@ -1,0 +1,29 @@
+{{template "header" .}}
+{{template "panelhead" "Characters"}}
+
+<form class="search-form" action="" method="GET">
+    <input type="search" name="ckey" maxlength="100" placeholder="Player ckey">
+    <input type="search" name="name" maxlength="100" placeholder="Character name">
+    <input type="submit" value="Search">
+</form>
+
+{{if .Chars}}
+<ul class="block-list">
+    {{range .Chars}}
+    <li>
+        <div>
+        <a href="/character/{{.ID}}">
+            <span class="text">{{.CKey}}</span>
+            <span class="text">{{.NiceName}}</span>
+            <span class="text">{{.Species}}</span>
+        </a>
+        </div>
+    </li>
+    {{end}}
+</ul>
+{{else}}
+<p class="error center">Sorry, can't find any characters!</p>
+{{end}}
+
+{{template "panelfoot"}}
+{{template "footer"}}

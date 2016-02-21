@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"strings"
 	"time"
 
 	"github.com/go-sql-driver/mysql"
@@ -186,14 +187,11 @@ func (db *DB) GetCharacter(id int64) *Character {
 	return &tmp
 }
 
-func (db *DB) SearchCharacterName(name string) []*Character {
+func (db *DB) SearchCharacter(ckey, name string) []*Character {
 	var tmp []*Character
-	db.Order("name desc").Where("name LIKE '%?%'", name).Find(&tmp)
-	return tmp
-}
-
-func (db *DB) SearchCharacterCKey(ckey string) []*Character {
-	var tmp []*Character
-	db.Order("ckey desc").Where("ckey LIKE '%?%'", ckey).Find(&tmp)
+	// Don't any weird behaviours if the user is smart enough to try to use these
+	tckey := "%" + strings.Trim(ckey, "_%") + "%"
+	tname := "%" + strings.Trim(name, "_%") + "%"
+	db.Debug().Order("ckey, name desc").Where("ckey LIKE ? AND name LIKE ?", tckey, tname).Limit(MAX_ROWS).Find(&tmp)
 	return tmp
 }

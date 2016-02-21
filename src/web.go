@@ -79,6 +79,7 @@ func (i *Instance) Init() {
 	i.router.GET("/account_items", i.account_items)
 	i.router.GET("/rounds", i.rounds)
 	i.router.GET("/round/:round_id", i.round_detail)
+	i.router.GET("/characters", i.characters)
 	i.router.GET("/character/:char_id", i.character_detail)
 }
 
@@ -140,6 +141,17 @@ func (i *Instance) round_detail(c *gin.Context) {
 	})
 }
 
+func (i *Instance) characters(c *gin.Context) {
+	ckey := c.Query("ckey")
+	name := c.Query("name")
+	chars := i.DB.SearchCharacter(ckey, name)
+
+	c.HTML(http.StatusOK, "characters.html", gin.H{
+		"pagetitle": "Characters",
+		"Chars":     chars,
+	})
+}
+
 func (i *Instance) character_detail(c *gin.Context) {
 	id, e := strconv.ParseInt(c.Param("char_id"), 10, 0)
 	if e != nil {
@@ -149,7 +161,7 @@ func (i *Instance) character_detail(c *gin.Context) {
 	fmt.Printf("CHAR: %+v\n", char)
 
 	c.HTML(http.StatusOK, "character_detail.html", gin.H{
-		"pagetitle": fmt.Sprintf("Character #%v", char.Name),
+		"pagetitle": fmt.Sprintf("%v by %v", char.NiceName(), char.CKey),
 		"Char":      char,
 	})
 }

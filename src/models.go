@@ -175,3 +175,10 @@ type Character struct {
 func (c *Character) TableName() string {
 	return "characters"
 }
+
+func (c *Character) NiceName() string {
+	if len(strings.TrimSpace(c.Name)) == 0 {
+		return "<NO NAME>"
+	}
+	return strings.Title(c.Name)
+}

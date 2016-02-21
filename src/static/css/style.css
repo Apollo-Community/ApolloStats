@@ -224,6 +224,11 @@ td.min-width {
 }
 
 /* Utils **********************************************************************/
+.search-form {
+    text-align: center;
+    margin: 10px;
+}
+
 .right {
     float: right;
 }
