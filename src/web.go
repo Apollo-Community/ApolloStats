@@ -158,7 +158,6 @@ func (i *Instance) character_detail(c *gin.Context) {
 		id = -1
 	}
 	char := i.DB.GetCharacter(id)
-	fmt.Printf("CHAR: %+v\n", char)
 
 	c.HTML(http.StatusOK, "character_detail.html", gin.H{
 		"pagetitle": fmt.Sprintf("%v by %v", char.NiceName(), char.CKey),
