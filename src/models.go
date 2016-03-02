@@ -1,7 +1,6 @@
 package apollostats
 
 import (
-	"html"
 	"net/url"
 	"sort"
 	"strings"
@@ -49,7 +48,7 @@ func (b *Ban) Expires() string {
 func (b *Ban) Message() string {
 	m := strings.TrimPrefix(b.Reason, "(MANUAL BAN) ")
 	// Make sure the message ends with a dot, but avoid making double dots.
-	m = html.UnescapeString(m)
+	m = filter_string(m)
 	m = strings.TrimSuffix(m, ".") + "."
 	return m
 }
@@ -85,9 +84,7 @@ func (d *Death) TableName() string {
 
 // Return a cleaned up room name.
 func (d *Death) RoomName() string {
-	// TODO: fix this thing in the byond source.
-	// Cleanup the room name
-	return strings.Trim(d.Room, "ÿ")
+	return filter_string(d.Room)
 }
 
 type RoundAntags struct {
@@ -179,26 +176,28 @@ func (c *Character) TableName() string {
 }
 
 func (c *Character) NiceName() string {
-	if len(strings.TrimSpace(c.Name)) == 0 {
+	tmp := filter_string(c.Name)
+	if len(tmp) == 0 {
 		return "<NO NAME>"
 	}
-	return strings.Title(c.Name)
+	return strings.Title(tmp)
 }
 
 func (c *Character) NiceGender() string {
+	tmp := filter_string(c.Gender)
 	switch c.Species {
 	case "Machine", "Diona", "Wryn":
 		return "None"
 	case "Tajara", "Unathi", "Skrell", "Nucleation", "Human":
-		if len(strings.TrimSpace(c.Gender)) > 1 {
-			return strings.Title(c.Gender)
+		if len(tmp) > 1 {
+			return strings.Title(tmp)
 		}
 	}
 	return "Unknown"
 }
 
 func (c *Character) NiceBirthDate() string {
-	t, e := time.Parse("2006&1&2", strings.Replace(c.BirthDate, "&amp;", "&", -1))
+	t, e := time.Parse("2006&1&2", filter_string(c.BirthDate))
 	if e != nil {
 		return "Can't parse date"
 	}
@@ -228,14 +227,14 @@ func (c *Character) NiceDep() string {
 
 func (c *Character) Flavor() string {
 	if c.Species == "Machine" {
-		return html.UnescapeString(c.FlavorTextsRobot)
+		return filter_string(c.FlavorTextsRobot)
 	}
-	return html.UnescapeString(c.FlavorTextsHuman)
+	return filter_string(c.FlavorTextsHuman)
 }
 
 func (c *Character) UnlockedJobs() []string {
 	var jobs []string
-	tmp, e := url.QueryUnescape(strings.Replace(c.Roles, "&amp;", "&", -1))
+	tmp, e := url.QueryUnescape(filter_string(c.Roles))
 	if e != nil {
 		return []string{"Error parsing jobs"}
 	}
@@ -248,9 +247,9 @@ func (c *Character) UnlockedJobs() []string {
 
 func (c *Character) Records() map[string]string {
 	records := map[string]string{
-		"Employee": html.UnescapeString(c.EmpRecords),
-		"Medical":  html.UnescapeString(c.MedRecords),
-		"Security": html.UnescapeString(c.SecRecords),
+		"Employee": filter_string(c.EmpRecords),
+		"Medical":  filter_string(c.MedRecords),
+		"Security": filter_string(c.SecRecords),
 	}
 	return records
 }
