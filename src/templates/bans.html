@@ -2,7 +2,7 @@
 {{template "panelhead" "Latest bans"}}
 
 <form class="search-form" action="" method="GET">
-    <input type="search" name="ckey" maxlength="100" placeholder="Player ckey">
+    <input type="search" name="ckey" maxlength="100" placeholder="Banned CKEY">
     <input type="submit" value="Search">
 </form>
 
@@ -15,7 +15,7 @@
             <span class="ban">{{.Ban}} ban</span>
             <span class="time">{{.Expires}}</span>
             <span class="long">
-                <span class="bold">{{.Admin}}</span> {{.Timestamp | pretty_time}}:<br />
+                Issued at {{.Timestamp | pretty_time}}:<br />
                 {{.Message}}</span>
         </div>
     </li>

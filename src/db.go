@@ -192,10 +192,9 @@ func (db *DB) GetCharacter(id int64) *Character {
 	return &tmp
 }
 
-func (db *DB) SearchCharacter(ckey, name string) []*Character {
+func (db *DB) SearchCharacter(name string) []*Character {
 	var tmp []*Character
-	tckey := "%" + strings.Trim(ckey, "_%") + "%"
 	tname := "%" + strings.Trim(name, "_%") + "%"
-	db.Order("ckey, name desc").Where("ckey LIKE ? AND name LIKE ?", tckey, tname).Limit(MAX_ROWS).Find(&tmp)
+	db.Order("name desc").Where("name LIKE ?", tname).Limit(MAX_ROWS).Find(&tmp)
 	return tmp
 }

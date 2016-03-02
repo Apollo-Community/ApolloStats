@@ -145,9 +145,8 @@ func (i *Instance) round_detail(c *gin.Context) {
 }
 
 func (i *Instance) characters(c *gin.Context) {
-	ckey := c.Query("ckey")
 	name := c.Query("name")
-	chars := i.DB.SearchCharacter(ckey, name)
+	chars := i.DB.SearchCharacter(name)
 
 	c.HTML(http.StatusOK, "characters.html", gin.H{
 		"pagetitle": "Characters",
@@ -163,7 +162,7 @@ func (i *Instance) character_detail(c *gin.Context) {
 	char := i.DB.GetCharacter(id)
 
 	c.HTML(http.StatusOK, "character_detail.html", gin.H{
-		"pagetitle": fmt.Sprintf("%v by %v", char.NiceName(), char.CKey),
+		"pagetitle": char.NiceName(),
 		"Char":      char,
 	})
 }
