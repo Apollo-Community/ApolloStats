@@ -198,7 +198,7 @@ func (c *Character) NiceGender() string {
 }
 
 func (c *Character) NiceBirthDate() string {
-	t, e := time.Parse("2006&1&2", c.BirthDate)
+	t, e := time.Parse("2006&1&2", strings.Replace(c.BirthDate, "&amp;", "&", -1))
 	if e != nil {
 		return "Can't parse date"
 	}
@@ -235,7 +235,7 @@ func (c *Character) Flavor() string {
 
 func (c *Character) UnlockedJobs() []string {
 	var jobs []string
-	tmp, e := url.QueryUnescape(c.Roles)
+	tmp, e := url.QueryUnescape(strings.Replace(c.Roles, "&amp;", "&", -1))
 	if e != nil {
 		return []string{"Error parsing jobs"}
 	}
