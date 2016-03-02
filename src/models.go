@@ -49,6 +49,7 @@ func (b *Ban) Expires() string {
 func (b *Ban) Message() string {
 	m := strings.TrimPrefix(b.Reason, "(MANUAL BAN) ")
 	// Make sure the message ends with a dot, but avoid making double dots.
+	m = html.UnescapeString(m)
 	m = strings.TrimSuffix(m, ".") + "."
 	return m
 }
