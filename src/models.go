@@ -228,9 +228,9 @@ func (c *Character) NiceDep() string {
 
 func (c *Character) Flavor() string {
 	if c.Species == "Machine" {
-		return c.FlavorTextsRobot
+		return html.UnescapeString(c.FlavorTextsRobot)
 	}
-	return c.FlavorTextsHuman
+	return html.UnescapeString(c.FlavorTextsHuman)
 }
 
 func (c *Character) UnlockedJobs() []string {
