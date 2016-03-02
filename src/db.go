@@ -133,7 +133,7 @@ func (db *DB) GetStats() *Stats {
 func (db *DB) SearchBans(ckey string) []*Ban {
 	var tmp []*Ban
 	// Don't want any weird behaviours if the user is smart enough to try to use these
-	tckey := "%" + strings.Trim(ckey, "_%") + "%"
+	tckey := "%" + strings.Trim(strings.TrimSpace(ckey), "_%") + "%"
 	db.Order("id desc, ckey asc").Where("ckey LIKE ?", tckey).Limit(MAX_ROWS).Find(&tmp)
 	return tmp
 }
@@ -194,7 +194,8 @@ func (db *DB) GetCharacter(id int64) *Character {
 
 func (db *DB) SearchCharacter(name string) []*Character {
 	var tmp []*Character
-	tname := "%" + strings.Trim(name, "_%") + "%"
-	db.Order("name desc").Where("name LIKE ?", tname).Limit(MAX_ROWS).Find(&tmp)
+	tname := "%" + strings.Trim(strings.TrimSpace(name), "_%") + "%"
+	// The NOT should filter out weird characters with no names set
+	db.Order("name asc").Where("name LIKE ?", tname).Not("name = ''").Limit(MAX_ROWS).Find(&tmp)
 	return tmp
 }
