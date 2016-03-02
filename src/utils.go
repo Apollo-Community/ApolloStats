@@ -10,9 +10,6 @@ func filter_string(s string) string {
 	// Fuck it, might aswell assume all text has been escaped.
 	tmp := html.UnescapeString(s)
 
-	// Usually seen in the character table.
-	tmp = strings.Replace(tmp, "&amp;", "&", -1)
-
 	// Usually seen in the room names in the death table.
 	tmp = strings.Trim(tmp, "ÿ")
 
