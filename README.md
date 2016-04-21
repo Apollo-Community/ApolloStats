@@ -95,6 +95,12 @@ MIT License, see the LICENSE file for details.
 TODO
 ================================================================================
 
+Random stats page:
+- Character counts for species, gender etc.
+- Char. count for male/bald/30 (ie, newcommers and mostly griefers).
+- Add in that country stats stuff to this page too.
+- More.
+
 Info:
 - Clarify that there are never info from a currently running round.
 - Clarify total deaths.
