@@ -67,6 +67,18 @@ func OpenDB(DSN string, debug bool) (*DB, error) {
 	return &DB{&db}, e
 }
 
+type SpeciesCount struct {
+	TotalDiona      int64
+	TotalHuman      int64
+	TotalMachine    int64
+	TotalNucleation int64
+	TotalSkrell     int64
+	TotalTajara     int64
+	TotalUnathi     int64
+	TotalVox        int64
+	TotalWryn       int64
+}
+
 type Stats struct {
 	TotalAccountItems  int64
 	TotalBans          int64
@@ -78,6 +90,9 @@ type Stats struct {
 	AvgRoundDuration   float64
 	TotalMonkeys       int64
 	TotalDamages       int64
+	TotalPlayers       int64
+	TotalCharacters    int64
+	Species            *SpeciesCount
 }
 
 func (db *DB) GetStats() *Stats {
@@ -127,7 +142,45 @@ func (db *DB) GetStats() *Stats {
 
 	avg_deaths = float64(total_deaths+total_monkey_deaths) / float64(total_rounds)
 
-	return &Stats{total_acc_items, total_bans, avg_bans, total_rounds, total_deaths, avg_deaths, total_round_duration, avg_round_duration, total_monkey_deaths, total_damage_cost}
+	var (
+		total_players    int64
+		total_characters int64
+		total_diona      int64
+		total_human      int64
+		total_machine    int64
+		total_nucleation int64
+		total_skrell     int64
+		total_tajara     int64
+		total_unathi     int64
+		total_vox        int64
+		total_wryn       int64
+	)
+	// Yet another issue with gorm: can't use DISTINCT and the Count() func
+	// in the same query so have to do some Row() magic.
+	row := db.Table("characters").Select("COUNT(DISTINCT(ckey))").Row()
+	row.Scan(&total_players)
+	db.Model(Character{}).Count(&total_characters)
+	db.Model(Character{}).Where("species = ?", "diona").Count(&total_diona)
+	db.Model(Character{}).Where("species = ?", "human").Count(&total_human)
+	db.Model(Character{}).Where("species = ?", "machine").Count(&total_machine)
+	db.Model(Character{}).Where("species = ?", "nucleation").Count(&total_nucleation)
+	db.Model(Character{}).Where("species = ?", "skrell").Count(&total_skrell)
+	db.Model(Character{}).Where("species = ?", "tajara").Count(&total_tajara)
+	db.Model(Character{}).Where("species = ?", "unathi").Count(&total_unathi)
+	db.Model(Character{}).Where("species = ?", "vox").Count(&total_vox)
+	db.Model(Character{}).Where("species = ?", "wryn").Count(&total_wryn)
+
+	species := &SpeciesCount{
+		total_diona, total_human, total_machine, total_nucleation,
+		total_skrell, total_tajara, total_unathi, total_vox, total_wryn,
+	}
+
+	return &Stats{
+		total_acc_items, total_bans, avg_bans, total_rounds, total_deaths,
+		avg_deaths, total_round_duration, avg_round_duration,
+		total_monkey_deaths, total_damage_cost, total_players,
+		total_characters, species,
+	}
 }
 
 func (db *DB) SearchBans(ckey string) []*Ban {

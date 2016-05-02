@@ -43,6 +43,12 @@
                 <li><span>Average bans per day:</span> {{.Stats.AvgBans | printf "%.1f"}}</li>
                 <li><span>Total rounds:</span> {{.Stats.TotalRounds}}</li>
                 <li><span>Total structural damages:</span> ${{.Stats.TotalDamages | commas}}</li>
+                <li><span>Total Players:</span> {{.Stats.TotalPlayers | commas}}</li>
+                <li><span>Total Dionas:</span> {{.Stats.Species.TotalDiona | commas}}</li>
+                <li><span>Total Humans:</span> {{.Stats.Species.TotalHuman | commas}}</li>
+                <li><span>Total Machines:</span> {{.Stats.Species.TotalMachine | commas}}</li>
+                <li><span>Total Nucleations:</span> {{.Stats.Species.TotalNucleation | commas}}</li>
+                <li><span>Total Skrell:</span> {{.Stats.Species.TotalSkrell | commas}}</li>
             </ul>
         </div>
         <div class="right">
@@ -52,6 +58,11 @@
                 <li><span>Average deaths per round:</span> {{.Stats.AvgDeaths | printf "%.1f"}}</li>
                 <li><span>Total game time:</span> {{.Stats.TotalRoundDuration | printf "%.1f"}} hours</li>
                 <li><span>Average round duration:</span> {{.Stats.AvgRoundDuration | printf "%.1f"}} minutes</li>
+                <li><span>Total Characters:</span> {{.Stats.TotalCharacters | commas}}</li>
+                <li><span>Total Tajara:</span> {{.Stats.Species.TotalTajara | commas}}</li>
+                <li><span>Total Unathi:</span> {{.Stats.Species.TotalUnathi | commas}}</li>
+                <li><span>Total Vox:</span> {{.Stats.Species.TotalVox | commas}}</li>
+                <li><span>Total Wryn:</span> {{.Stats.Species.TotalWryn | commas}}</li>
             </ul>
         </div>
     </div>
