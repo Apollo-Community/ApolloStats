@@ -64,7 +64,7 @@ func OpenDB(DSN string, debug bool) (*DB, error) {
 	if !debug {
 		db.LogMode(debug)
 	}
-	return &DB{&db}, e
+	return &DB{db}, e
 }
 
 type SpeciesCount struct {
