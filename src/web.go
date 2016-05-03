@@ -3,13 +3,13 @@ package apollostats
 import (
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
-	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
 
+	"github.com/Apollo-Community/ApolloStats/src/assettemplates"
 	"github.com/GeertJohan/go.rice"
 	"github.com/dustin/go-humanize"
 	"github.com/gin-gonic/gin"
@@ -51,21 +51,16 @@ func (i *Instance) Init() {
 	}
 
 	// Load templates
-	templatebox := rice.MustFindBox("templates")
-	templates := template.New("ServerTemplates").Funcs(funcmap)
-	// Iterate over all templates and mash them together
-	templatebox.Walk("", func(p string, i os.FileInfo, e error) error {
-		if i.IsDir() {
-			return nil
-		}
-		s, e := templatebox.String(p)
-		if e != nil {
-			log.Fatalf("Failed to load template: %s\n%s\n", p, e)
-		}
-		template.Must(templates.New(p).Parse(s))
-		return nil
-	})
-	i.router.SetHTMLTemplate(templates)
+	tmpl := template.New("AllTemplates").Funcs(funcmap)
+	tmplfiles, e := assettemplates.AssetDir("templates/")
+	if e != nil {
+		panic(e)
+	}
+	for p, b := range tmplfiles {
+		name := filepath.Base(p)
+		template.Must(tmpl.New(name).Parse(string(b)))
+	}
+	i.router.SetHTMLTemplate(tmpl)
 
 	// And static files
 	static := rice.MustFindBox("static")
