@@ -9,7 +9,7 @@ Requires a running Mysql/MariaDB server with the game's database.
 Installation
 ================================================================================
 
-Compile time dependencies:
+Compile time dependencies
 --------------------------------------------------------------------------------
 
 - Go v1.5+ (Unknown if older versions works)
@@ -17,38 +17,24 @@ Compile time dependencies:
 - [gin](https://github.com/gin-gonic/gin)
 - [go-humanize](https://github.com/dustin/go-humanize)
 - [go-sql-driver/mysql](https://github.com/go-sql-driver/mysql)
-- [go.rice](https://github.com/GeertJohan/go.rice)
 - [gorm](https://github.com/jinzhu/gorm)
 
-Compilation:
+Build tool for embedding assets:
+- [yaber](https://github.com/lmas/yaber)
+
+Compilation
 --------------------------------------------------------------------------------
 
-Download the source code (via `go get`, `git` or from a [zipped archive](https://github.com/Apollo-Community/ApolloStats/archive/v0.3.zip)).
-Open the directory with the source code and run `go build` to compile the code.
-You will now have a `ApolloStats` binary in the dir, which you can run to start
-the web server.
+Download the source code
 
-Please note that this binary still depends on the source templates and static
-files, found inside the `src/` directory.
+    go get -u github.com/Apollo-Community/ApolloStats
 
-Stand alone binary:
---------------------------------------------------------------------------------
+Or from a [zipped archive](https://github.com/Apollo-Community/ApolloStats/releases)).
 
-To truly make a stand alone binary without having to depend on the `src/` directory,
-you will have to append the templates and static files to the binary itself.
-This step depends on the `rice` command, so you will have to install it too using
-`go get github.com/GeertJohan/go.rice/rice`.
+Go to the directory with the unpacked source code and run `make build` to compile
+the code to a stand alone binary, called `ApolloStats64`.
 
-Then you can compile the binary like before. After that, change into the `src/`
-directory and run `rice append --exec ../ApolloStats` to append the templates
-and static filesto the final binary.
-
-Makefile:
---------------------------------------------------------------------------------
-
-There is a `Makefile` that will do all these steps for you too. Make sure you
-have `make` installed and then simply run `make` and it will build the stand
-alone binary for you.
+See the `Makefile` for more options.
 
 Usage
 ================================================================================
@@ -76,7 +62,7 @@ GLOBAL OPTIONS:
    --version, -v                                print the version
 ```
 
-Environment variables:
+Environment variables
 --------------------------------------------------------------------------------
 
 You can set some environment variables instead of using the command line flags.
@@ -91,7 +77,6 @@ License
 
 MIT License, see the LICENSE file for details.
 
-
 TODO
 ================================================================================
 
@@ -102,9 +87,6 @@ Info:
 Templates:
 - Need to remake the custom CSS and make the pages prettier.
 - Change the colors used in css.
-
-Static files:
-- Replace go.rice with a more stable lib.
 
 Database:
 - Fix duplicate entries of drones.
