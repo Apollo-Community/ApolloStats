@@ -3,14 +3,15 @@ package apollostats
 import (
 	"fmt"
 	"html/template"
+	"mime"
 	"net/http"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
 
+	"github.com/Apollo-Community/ApolloStats/src/assetstatic"
 	"github.com/Apollo-Community/ApolloStats/src/assettemplates"
-	"github.com/GeertJohan/go.rice"
 	"github.com/dustin/go-humanize"
 	"github.com/gin-gonic/gin"
 )
@@ -63,8 +64,19 @@ func (i *Instance) Init() {
 	i.router.SetHTMLTemplate(tmpl)
 
 	// And static files
-	static := rice.MustFindBox("static")
-	i.router.StaticFS("/static/", static.HTTPBox())
+	staticfiles, e := assetstatic.AssetDir("static/")
+	if e != nil {
+		panic(e)
+	}
+	for p, _ := range staticfiles {
+		ctype := mime.TypeByExtension(filepath.Ext(p))
+		// Need to make a local copy of the var or else all files will
+		// return the content of a single file (quirk with range).
+		b := staticfiles[p]
+		i.router.GET(fmt.Sprintf("/%s", p), func(c *gin.Context) {
+			c.Data(http.StatusOK, ctype, b)
+		})
+	}
 
 	// Setup all views
 	i.router.GET("/", i.index)
