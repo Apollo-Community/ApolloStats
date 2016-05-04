@@ -62,7 +62,7 @@ func OpenDB(DSN string, debug bool) (*DB, error) {
 	if !debug {
 		db.LogMode(debug)
 	}
-	return &DB{&db}, e
+	return &DB{db}, e
 }
 
 type Stats struct {
@@ -183,24 +183,23 @@ func (db *DB) GetDeaths(id int64) []*Death {
 }
 
 func (db *DB) AllGameModes() []*GameMode {
-	// TODO: Yep it's a fucking beast. And yep, it's slow as fuck.
 	// I feel dirty for having made this...
 	var game_modes []string
 	var modes GameModeSlice
 	var total_rounds int64
-	db.Table("round_stats").Pluck("DISTINCT game_mode", &game_modes)
-	for _, gm := range game_modes {
-		var ret GameMode
-		db.Table("round_stats").Where("game_mode=?", gm).Select(`
+	db.Table("round_stats").Pluck("DISTINCT(game_mode)", &game_modes)
+	for _, m := range game_modes {
+		var g GameMode
+		db.Table("round_stats").Where("game_mode=?", m).Select(`
 			COUNT(id) as total_rounds, 
 			AVG(duration) as avg_duration,
 			AVG(productivity) as avg_productivity,
 			AVG(deaths) as avg_deaths
-		`).Find(&ret)
+		`).Find(&g)
 
-		ret.Title = strings.Title(gm)
-		total_rounds += ret.TotalRounds
-		modes = append(modes, &ret)
+		g.Title = strings.Title(m)
+		total_rounds += g.TotalRounds
+		modes = append(modes, &g)
 	}
 
 	var t float64
