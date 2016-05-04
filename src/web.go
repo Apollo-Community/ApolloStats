@@ -22,12 +22,15 @@ type Instance struct {
 
 	addr   string
 	router *gin.Engine
+	cache  *Cache
 }
 
 func (i *Instance) Init() {
 	if i.Debug == false {
 		gin.SetMode(gin.ReleaseMode)
 	}
+
+	i.cache = NewCache(i.DB)
 
 	// TODO: replace Default with New and use custom logger and stuff
 	i.router = gin.Default()
@@ -96,14 +99,18 @@ func (i *Instance) Init() {
 
 func (i *Instance) Serve(addr string) error {
 	i.addr = addr
+	defer i.cache.close()
+	go i.cache.updater()
 	return i.router.Run(i.addr)
 }
 
 func (i *Instance) index(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", gin.H{
-		"pagetitle": "Index",
-		"Round":     i.DB.GetLatestRound(),
-		"Stats":     i.DB.GetStats(),
+		"pagetitle":   "Index",
+		"Round":       i.cache.LatestRound,
+		"Stats":       i.cache.GameStats,
+		"LastUpdated": i.cache.LastUpdated,
+		"UpdateTime":  i.cache.UpdateTime,
 	})
 }
 
@@ -182,6 +189,6 @@ func (i *Instance) character_detail(c *gin.Context) {
 func (i *Instance) game_modes(c *gin.Context) {
 	c.HTML(http.StatusOK, "game_modes.html", gin.H{
 		"pagetitle": "Game modes",
-		"GameModes": i.DB.AllGameModes(),
+		"GameModes": i.cache.GameModes,
 	})
 }
