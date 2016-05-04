@@ -40,6 +40,13 @@ func (i *Instance) Init() {
 		"pretty_time": func(t time.Time) string {
 			return t.UTC().Format("2006-01-02 15:04 MST")
 		},
+		"pretty_duration": func(d time.Duration) string {
+			m := d.Minutes()
+			if m >= 1 {
+				return fmt.Sprintf("%.1fmin", m)
+			}
+			return fmt.Sprintf("%.1fsec", d.Seconds())
+		},
 		"year": func() int {
 			return time.Now().Year()
 		},
