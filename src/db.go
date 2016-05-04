@@ -41,7 +41,7 @@ func timeout_dial(addr string) (net.Conn, error) {
 	return c, nil
 }
 
-func OpenDB(DSN string, debug bool) (*DB, error) {
+func OpenDB(DSN string, verbose bool) (*DB, error) {
 	// Register a custom dialer so we can set a connection timeout and deadline
 	mysql.RegisterDial("tcp", timeout_dial)
 
@@ -53,9 +53,9 @@ func OpenDB(DSN string, debug bool) (*DB, error) {
 	tmp := fmt.Sprintf("%s?parseTime=True&loc=%v&timeout=30s", DSN, TIMEZONE_ADJUST)
 	db, e := gorm.Open("mysql", tmp)
 	// Avoid setting LogMode(true), since that will trace log all queries.
-	// Only show errors by default, unless silenced completely by debug = false
-	if !debug {
-		db.LogMode(debug)
+	// Only show errors by default, unless silenced completely by verbose = false
+	if !verbose {
+		db.LogMode(verbose)
 	}
 	return &DB{db}, e
 }

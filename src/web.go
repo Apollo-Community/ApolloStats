@@ -17,8 +17,8 @@ import (
 )
 
 type Instance struct {
-	Debug bool
-	DB    *DB
+	Verbose bool
+	DB      *DB
 
 	addr   string
 	router *gin.Engine
@@ -26,14 +26,11 @@ type Instance struct {
 }
 
 func (i *Instance) Init() error {
-	if i.Debug == false {
-		gin.SetMode(gin.ReleaseMode)
-	}
-
-	i.cache = NewCache(i.DB)
-
-	// TODO: replace Default with New and use custom logger and stuff
-	i.router = gin.Default()
+	i.cache = NewCache(i)
+	gin.SetMode(gin.ReleaseMode)
+	i.router = gin.New()
+	i.router.Use(gin.Recovery())
+	i.router.Use(i.logger())
 
 	// Custom functions for the templates
 	funcmap := template.FuncMap{
@@ -113,6 +110,7 @@ func (i *Instance) Serve(addr string) error {
 	i.addr = addr
 	defer i.cache.close()
 	go i.cache.updater()
+	i.logMsg("Now listening on %s", addr)
 	return i.router.Run(i.addr)
 }
 

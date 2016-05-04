@@ -11,7 +11,7 @@ import (
 var (
 	g_addr     string
 	g_database string
-	g_debug    bool
+	g_verbose  bool
 )
 
 func main() {
@@ -34,9 +34,9 @@ func main() {
 			Destination: &g_database,
 		},
 		cli.BoolFlag{
-			Name:        "debug",
-			Usage:       "run in debug mode",
-			Destination: &g_debug,
+			Name:        "verbose",
+			Usage:       "run with verbose output",
+			Destination: &g_verbose,
 		},
 	}
 	app.Commands = []cli.Command{
@@ -46,22 +46,22 @@ func main() {
 }
 
 func run_server(c *cli.Context) {
-	db, e := apollostats.OpenDB(g_database, g_debug)
-	if e != nil && g_debug {
+	db, e := apollostats.OpenDB(g_database, g_verbose)
+	if e != nil && g_verbose {
 		log.Printf("Failed to connect to the database:\n%s\n", e.Error())
 	}
 
 	i := apollostats.Instance{
-		Debug: g_debug,
-		DB:    db,
+		Verbose: g_verbose,
+		DB:      db,
 	}
 
 	e = i.Init()
 	if e != nil {
-		panic(e)
+		log.Panic(e)
 	}
 	e = i.Serve(g_addr)
 	if e != nil {
-		panic(e)
+		log.Panic(e)
 	}
 }

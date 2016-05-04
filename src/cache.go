@@ -1,24 +1,21 @@
 package apollostats
 
-import (
-	"fmt"
-	"time"
-)
+import "time"
 
 type Cache struct {
-	DB          *DB
 	LatestRound *RoundStats
 	GameStats   *Stats
 	GameModes   []*GameMode
 	LastUpdated time.Time
 	UpdateTime  time.Duration
 
+	in        *Instance
 	closeChan chan bool
 }
 
-func NewCache(db *DB) *Cache {
+func NewCache(i *Instance) *Cache {
 	return &Cache{
-		DB:        db,
+		in:        i,
 		closeChan: make(chan bool),
 	}
 }
@@ -28,8 +25,10 @@ func (c *Cache) close() {
 }
 
 func (c *Cache) updater() {
-	ticker := time.NewTicker(CACHE_UPDATE * time.Minute)
+	d := time.Duration(CACHE_UPDATE * time.Minute)
+	ticker := time.NewTicker(d)
 	defer ticker.Stop()
+	c.in.logMsg("Running cache updates every %s.", d.String())
 
 	c.updateCache()
 	for {
@@ -44,9 +43,9 @@ func (c *Cache) updater() {
 
 func (c *Cache) updateCache() {
 	c.LastUpdated = time.Now()
-	c.LatestRound = c.DB.GetLatestRound()
-	c.GameStats = c.DB.GetStats()
-	c.GameModes = c.DB.AllGameModes()
+	c.LatestRound = c.in.DB.GetLatestRound()
+	c.GameStats = c.in.DB.GetStats()
+	c.GameModes = c.in.DB.AllGameModes()
 	c.UpdateTime = time.Since(c.LastUpdated)
-	fmt.Println("Cache update took", c.UpdateTime)
+	c.in.logMsg("Updated cache at %s (%s)", c.LastUpdated.String(), c.UpdateTime.String())
 }
