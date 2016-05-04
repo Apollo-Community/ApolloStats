@@ -5,21 +5,23 @@
 <ul class="block-list">
     <li>
         <div>
-            <span class="text">Game Mode</span>
-            <span class="text">Rounds</span>
-            <span class="text">Avg. Duration</span>
-            <span class="text">Avg. Productivity</span>
-            <span class="text">Avg. Deaths</span>
+            <span class="game-mode">Game Mode</span>
+            <span class="game-mode">Rounds</span>
+            <span class="game-mode">Avg. Duration</span>
+            <span class="game-mode">Avg. Productivity</span>
+            <span class="game-mode">Avg. Deaths</span>
+            <span class="game-mode">Antag succes rate</span>
         </div>
     </li>
     {{range .GameModes}}
     <li>
         <div>
-            <span class="text">{{.Title}}</span>
-            <span class="text">{{.TotalRounds}} ({{.AvgRounds | round}}%)</span>
-            <span class="text">{{.AvgDuration | round}} minutes</span>
-            <span class="text">{{.AvgProductivity | round}}%</span>
-            <span class="text">{{.AvgDeaths | round}}</span>
+            <span class="game-mode">{{.Title}}</span>
+            <span class="game-mode">{{.TotalRounds}} ({{.AvgRounds | round}}%)</span>
+            <span class="game-mode">{{.AvgDuration | round}} minutes</span>
+            <span class="game-mode">{{.AvgProductivity | round}}%</span>
+            <span class="game-mode">{{.AvgDeaths | round}}</span>
+            <span class="game-mode">{{.AvgAntagWins | round}}%</span>
         </div>
     </li>
     {{end}}

@@ -261,8 +261,7 @@ type GameMode struct {
 	AvgDuration     float64
 	AvgProductivity float64
 	AvgDeaths       float64
-	//AvgAntags       float64 // TODO: yeah gonna need an efficient way to grab these..
-	//AvgAntagWins    float64
+	AvgAntagWins    float64
 }
 
 type GameModeSlice []*GameMode

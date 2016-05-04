@@ -219,6 +219,10 @@ td.min-width {
     clear: both;
 }
 
+.block-list .game-mode {
+    width: 150px;
+}
+
 .stats {
     background-color: black;
     overflow: hidden;
