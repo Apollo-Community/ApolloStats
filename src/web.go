@@ -25,7 +25,7 @@ type Instance struct {
 	cache  *Cache
 }
 
-func (i *Instance) Init() {
+func (i *Instance) Init() error {
 	if i.Debug == false {
 		gin.SetMode(gin.ReleaseMode)
 	}
@@ -68,18 +68,21 @@ func (i *Instance) Init() {
 	tmpl := template.New("AllTemplates").Funcs(funcmap)
 	tmplfiles, e := assettemplates.AssetDir("templates/")
 	if e != nil {
-		panic(e)
+		return e
 	}
 	for p, b := range tmplfiles {
 		name := filepath.Base(p)
-		template.Must(tmpl.New(name).Parse(string(b)))
+		_, e = tmpl.New(name).Parse(string(b))
+		if e != nil {
+			return e
+		}
 	}
 	i.router.SetHTMLTemplate(tmpl)
 
 	// And static files
 	staticfiles, e := assetstatic.AssetDir("static/")
 	if e != nil {
-		panic(e)
+		return e
 	}
 	for p, _ := range staticfiles {
 		ctype := mime.TypeByExtension(filepath.Ext(p))
@@ -102,6 +105,8 @@ func (i *Instance) Init() {
 	i.router.GET("/characters", i.characters)
 	i.router.GET("/character/:char_id", i.character_detail)
 	i.router.GET("/game_modes", i.game_modes)
+
+	return nil
 }
 
 func (i *Instance) Serve(addr string) error {

@@ -56,6 +56,12 @@ func run_server(c *cli.Context) {
 		DB:    db,
 	}
 
-	i.Init()
-	i.Serve(g_addr)
+	e = i.Init()
+	if e != nil {
+		panic(e)
+	}
+	e = i.Serve(g_addr)
+	if e != nil {
+		panic(e)
+	}
 }
