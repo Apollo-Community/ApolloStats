@@ -43,6 +43,9 @@ func (i *Instance) Init() {
 		"commas": func(i int64) string {
 			return humanize.Comma(i)
 		},
+		"round": func(f float64) string {
+			return fmt.Sprintf("%.1f", f)
+		},
 		"default_job": func(s string) string {
 			if len(strings.TrimSpace(s)) < 1 {
 				return "Unknown"
@@ -88,6 +91,7 @@ func (i *Instance) Init() {
 	i.router.GET("/round/:round_id", i.round_detail)
 	i.router.GET("/characters", i.characters)
 	i.router.GET("/character/:char_id", i.character_detail)
+	i.router.GET("/game_modes", i.game_modes)
 }
 
 func (i *Instance) Serve(addr string) error {
@@ -171,5 +175,12 @@ func (i *Instance) character_detail(c *gin.Context) {
 	c.HTML(http.StatusOK, "character_detail.html", gin.H{
 		"pagetitle": char.NiceName(),
 		"Char":      char,
+	})
+}
+
+func (i *Instance) game_modes(c *gin.Context) {
+	c.HTML(http.StatusOK, "game_modes.html", gin.H{
+		"pagetitle": "Game modes",
+		"GameModes": i.DB.AllGameModes(),
 	})
 }

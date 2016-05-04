@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"sort"
 	"strings"
 	"time"
 
@@ -251,4 +252,33 @@ func (db *DB) SearchCharacter(name string) []*Character {
 	// The NOT should filter out weird characters with no names set
 	db.Order("name asc").Where("name LIKE ?", tname).Not("name = ''").Limit(MAX_ROWS).Find(&tmp)
 	return tmp
+}
+
+func (db *DB) AllGameModes() []*GameMode {
+	// I feel dirty for having made this...
+	var game_modes []string
+	var modes GameModeSlice
+	var total_rounds int64
+	db.Table("round_stats").Pluck("DISTINCT(game_mode)", &game_modes)
+	for _, m := range game_modes {
+		var g GameMode
+		db.Table("round_stats").Where("game_mode=?", m).Select(`
+			COUNT(id) as total_rounds,
+			AVG(duration) as avg_duration,
+			AVG(productivity) as avg_productivity,
+			AVG(deaths) as avg_deaths
+		`).Find(&g)
+
+		g.Title = strings.Title(m)
+		total_rounds += g.TotalRounds
+		modes = append(modes, &g)
+	}
+
+	var t float64
+	for _, m := range modes {
+		m.AvgRounds = (float64(m.TotalRounds) / float64(total_rounds)) * 100
+		t += m.AvgRounds
+	}
+	sort.Sort(modes)
+	return modes
 }

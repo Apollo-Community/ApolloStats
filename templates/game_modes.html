@@ -1,0 +1,32 @@
+{{template "header" .}}
+{{template "panelhead" "Stats for game modes"}}
+
+{{if .GameModes}}
+<ul class="block-list">
+    <li>
+        <div>
+            <span class="text">Game Mode</span>
+            <span class="text">Rounds</span>
+            <span class="text">Avg. Duration</span>
+            <span class="text">Avg. Productivity</span>
+            <span class="text">Avg. Deaths</span>
+        </div>
+    </li>
+    {{range .GameModes}}
+    <li>
+        <div>
+            <span class="text">{{.Title}}</span>
+            <span class="text">{{.TotalRounds}} ({{.AvgRounds | round}}%)</span>
+            <span class="text">{{.AvgDuration | round}} minutes</span>
+            <span class="text">{{.AvgProductivity | round}}%</span>
+            <span class="text">{{.AvgDeaths | round}}</span>
+        </div>
+    </li>
+    {{end}}
+</ul>
+{{else}}
+<p class="error center">Sorry, can't find any game modes!</p>
+{{end}}
+
+{{template "panelfoot"}}
+{{template "footer"}}
