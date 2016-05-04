@@ -2,6 +2,18 @@
 {{template "panelhead" "Characters"}}
 
 <form class="search-form" action="" method="GET">
+    <select name="species">
+        <option value="all" selected>All</option>
+        <option value="diona">Diona</option>
+        <option value="human">Human</option>
+        <option value="machine">Machine</option>
+        <option value="nucleation">Nucleation</option>
+        <option value="skrell">Skrell</option>
+        <option value="tajara">Tajara</option>
+        <option value="unathi">Unathi</option>
+        <option value="vox">Vox</option>
+        <option value="wryn">Wryn</option>
+    </select>
     <input type="search" name="name" maxlength="100" placeholder="Character name">
     <input type="submit" value="Search">
 </form>

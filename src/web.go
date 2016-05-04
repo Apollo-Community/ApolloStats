@@ -157,7 +157,8 @@ func (i *Instance) round_detail(c *gin.Context) {
 
 func (i *Instance) characters(c *gin.Context) {
 	name := c.Query("name")
-	chars := i.DB.SearchCharacter(name)
+	species := c.Query("species")
+	chars := i.DB.SearchCharacter(species, name)
 
 	c.HTML(http.StatusOK, "characters.html", gin.H{
 		"pagetitle": "Characters",

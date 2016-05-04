@@ -246,11 +246,26 @@ func (db *DB) GetCharacter(id int64) *Character {
 	return &tmp
 }
 
-func (db *DB) SearchCharacter(name string) []*Character {
+func (db *DB) SearchCharacter(species, name string) []*Character {
 	var tmp []*Character
+	species = strings.ToLower(species)
+	switch species {
+	case "diona", "human", "machine", "nucleation", "skrell", "tajara",
+		"unathi", "vox", "wryn":
+		// Allow these values only and do nothing more with them
+	default:
+		species = ""
+	}
 	tname := "%" + strings.Trim(strings.TrimSpace(name), "_%") + "%"
+
 	// The NOT should filter out weird characters with no names set
-	db.Order("name asc").Where("name LIKE ?", tname).Not("name = ''").Limit(MAX_ROWS).Find(&tmp)
+	if len(species) > 0 {
+		db.Order("name asc").Where("species = ? AND name LIKE ?",
+			species, tname).Not("name = ''").Limit(MAX_ROWS).Find(&tmp)
+	} else {
+		db.Order("name asc").Where("name LIKE ?", tname).Not(
+			"name = ''").Limit(MAX_ROWS).Find(&tmp)
+	}
 	return tmp
 }
 
