@@ -1,6 +1,6 @@
 package apollostats
 
-const VERSION = "0.4"
+const VERSION = "0.5"
 
 // Max rows DB will return for all queries.
 const MAX_ROWS = 200
