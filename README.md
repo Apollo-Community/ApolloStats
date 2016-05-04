@@ -29,7 +29,7 @@ Download the source code
 
     go get -u github.com/Apollo-Community/ApolloStats
 
-Or from a [zipped archive](https://github.com/Apollo-Community/ApolloStats/releases)).
+Or from a [zipped archive](https://github.com/Apollo-Community/ApolloStats/releases).
 
 Go to the directory with the unpacked source code and run `make build` to compile
 the code to a stand alone binary, called `ApolloStats64`.
@@ -87,13 +87,6 @@ Info:
 Templates:
 - Need to remake the custom CSS and make the pages prettier.
 - Change the colors used in css.
-
-Database:
-- Fix duplicate entries of drones.
-- Fix duplicate entries of AI laws.
-
-Account items:
-- Would be nice to show why a player got an item too.
 
 Rounds:
 - Show player death graph over round's duration.

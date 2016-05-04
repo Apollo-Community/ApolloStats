@@ -230,13 +230,15 @@ func (db *DB) GetAntags(id int64) []*RoundAntags {
 
 func (db *DB) GetAILaws(id int64) []*RoundAILaws {
 	var tmp []*RoundAILaws
-	db.Order("round_id desc, law asc").Where("round_id = ?", id).Find(&tmp)
+	db.Order("round_id desc, law asc").Group("law").Where(
+		"round_id = ?", id).Find(&tmp)
 	return tmp
 }
 
 func (db *DB) GetDeaths(id int64) []*Death {
 	var tmp []*Death
-	db.Order("round_id desc, name asc").Where("round_id = ?", id).Find(&tmp)
+	db.Order("round_id desc, name asc").Group("name").Where(
+		"round_id = ?", id).Find(&tmp)
 	return tmp
 }
 
