@@ -277,3 +277,35 @@ func (m GameModeSlice) Swap(i, j int) {
 func (m GameModeSlice) Less(i, j int) bool {
 	return m[j].AvgRounds < m[i].AvgRounds
 }
+
+type Player struct {
+	ID   int64
+	CKey string
+	IP   string
+}
+
+func (p *Player) TableName() string {
+	return "player"
+}
+
+type Country struct {
+	ISOCode   string
+	Name      string
+	Continent string
+	Hits      int64
+}
+
+type countrySlice []*Country
+
+func (d countrySlice) Len() int {
+	return len(d)
+}
+
+func (d countrySlice) Swap(i, j int) {
+	d[i], d[j] = d[j], d[i]
+}
+
+func (d countrySlice) Less(i, j int) bool {
+	// Should sort the countries in ascending order, based on hits.
+	return d[i].Hits > d[j].Hits
+}

@@ -305,3 +305,9 @@ func (db *DB) AllGameModes() []*GameMode {
 	sort.Sort(modes)
 	return modes
 }
+
+func (db *DB) AllPlayers() []*Player {
+	var tmp []*Player
+	db.Order("ckey desc").Find(&tmp)
+	return tmp
+}
