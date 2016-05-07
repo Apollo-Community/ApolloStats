@@ -1,0 +1,20 @@
+{{template "header" .}}
+{{template "panelhead" "Top player countries"}}
+
+{{if .Countries}}
+<ul class="block-list">
+    {{range .Countries}}
+    <li>
+        <div>
+            <span class="text">{{.Name}}</span>
+            <span class="text">{{.Hits}} players</span>
+        </div>
+    </li>
+    {{end}}
+</ul>
+{{else}}
+<p class="error center">Sorry, can't find any country data!</p>
+{{end}}
+
+{{template "panelfoot"}}
+{{template "footer"}}

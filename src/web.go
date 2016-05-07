@@ -102,6 +102,7 @@ func (i *Instance) Init() error {
 	i.router.GET("/characters", i.characters)
 	i.router.GET("/character/:char_id", i.character_detail)
 	i.router.GET("/game_modes", i.game_modes)
+	i.router.GET("/countries", i.countries)
 
 	return nil
 }
@@ -200,5 +201,12 @@ func (i *Instance) game_modes(c *gin.Context) {
 	c.HTML(http.StatusOK, "game_modes.html", gin.H{
 		"pagetitle": "Game modes",
 		"GameModes": i.cache.GameModes,
+	})
+}
+
+func (i *Instance) countries(c *gin.Context) {
+	c.HTML(http.StatusOK, "countries.html", gin.H{
+		"pagetitle": "Countries",
+		"Countries": i.cache.Countries,
 	})
 }
