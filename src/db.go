@@ -280,20 +280,6 @@ func (db *DB) AllGameModes() []*GameMode {
 
 		g.Title = strings.Title(m)
 		total_rounds += g.TotalRounds
-
-		// Super expensive calucaltion of antag success rates for each mode
-		var rounds []int64
-		var antagWins int64
-		db.Table("round_stats").Where("game_mode = ?", m).Pluck("id", &rounds)
-		for _, r := range rounds {
-			var i int64
-			db.Table("round_antags").Where(
-				"round_id = ? AND success = 1", r).Count(&i)
-			if i > 0 {
-				antagWins += 1
-			}
-		}
-		g.AvgAntagWins = (float64(antagWins) / float64(g.TotalRounds)) * 100
 		modes = append(modes, &g)
 	}
 
