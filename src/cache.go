@@ -6,6 +6,7 @@ type Cache struct {
 	LatestRound *RoundStats
 	GameStats   *Stats
 	GameModes   []*GameMode
+	Countries   []*Country
 	LastUpdated time.Time
 	UpdateTime  time.Duration
 
@@ -46,6 +47,13 @@ func (c *Cache) updateCache() {
 	c.LatestRound = c.in.DB.GetLatestRound()
 	c.GameStats = c.in.DB.GetStats()
 	c.GameModes = c.in.DB.AllGameModes()
+
+	players := c.in.DB.AllPlayers()
+	var e error
+	c.Countries, e = GeoLookup(players)
+	if e != nil {
+		c.in.logMsg("Failed to get country data: %s", e)
+	}
 	c.UpdateTime = time.Since(c.LastUpdated)
 	c.in.logMsg("Updated cache at %s (%s)", c.LastUpdated.String(), c.UpdateTime.String())
 }
