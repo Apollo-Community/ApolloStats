@@ -57,5 +57,9 @@ func GeoLookup(players []*Player) ([]*Country, error) {
 		s = append(s, c)
 	}
 	sort.Sort(s)
-	return s[:10], nil
+	max := 10
+	if len(s) < max {
+		max = len(s)
+	}
+	return s[:max], nil
 }
